@@ -1,5 +1,6 @@
 require_relative 'json-object'
 require_relative 'mx-plan/ch-attr-action'
+require_relative 'mx-plan/hide-except-action'
 
 class MxPlan
   include JsonObject
@@ -12,6 +13,7 @@ class MxPlan
   optional_attr :disabled
   optional_attr :hide
   optional_attr :hideSibling
+  optional_attr :hideExcept, collection: true, klass: ::HideExceptAction
   optional_attr :show
   optional_attr :chAttr, collection: true, klass: ::ChAttrAction
   optional_attr :form

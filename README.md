@@ -69,7 +69,7 @@ https://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
 ### 流程
 
 1. 请到 MaoXian Web Clipper 的设置页面，启用「MaoXian 助手」
-2. 使用任何编辑器编写 Plan， 再把其复制到 「MaoXian 助手」设置里的自定义 Plan 里。
+2. 使用任何编辑器编写 Plan， 再把其复制到 「MaoXian 助手」设置里的**自定义 Plan **里。
 3. 刷新目标网页，点击「裁剪」验证编写的动作有没有产生预期效果。
 
 ### Plan 的结构解释
@@ -86,6 +86,7 @@ https://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
 | pick        | 选择器 | 选填 | 用于选择「要裁剪的节点」，可提供多个选择器，详情请看下文     |
 | hide        | 选择器 | 选填 | 用于选择「要剔除的节点」，可提供多个选择器，详情请看下文     |
 | hideSibling | 选择器 | 选填 | 用于选择「要剔除的节点」，可提供多个选择器，详情请看下文     |
+| hideExcept  | 元组   | 选填 | 用于选择「要剔除的节点」，选择方式为反选，详情请看下文       |
 | show        | 选择器 | 选填 | 用于显示隐藏的「块状节点」，可提供多个选择器，详情请看下文   |
 | chAttr      | 元组   | 选填 | 用于修改节点的属性值，提供了多种修改属性的方式，详情请看下文 |
 | form        | 对象   | 选填 | 用于预设置表单的输入值，详情见下文 |
@@ -203,6 +204,37 @@ hide 参数是用来剔除你不想裁剪的节点的，所有选择器找到的
 ### hideSibling 参数的使用
 
 hideSibling 参数是用来剔除你不想裁剪的节点的，它比 hide 参数特殊的地方在于， 所有选择器找到的节点必须具有一个特征：找到的节点在父节点的子节点中有且只有一个。找到的节点的兄弟姊妹节点都会被隐藏掉。 （MaoXian 不会裁剪隐藏的节点）。
+
+### hideExcept 参数的使用
+
+hideExcept 参数是使用「反选」的方式来选择要剔除的节点。它的值是一个 $action 的元组，$action 是一个 Object。$action 有两个必须指定的属性：`inside` 和 `except`
+
+* inside 属性的类型为选择器，用于指定该 $action 作用的范围。
+* except 属性的类型为选择器，可提供多个选择器，用于指定要保留的节点。
+
+假如有一个网页，它有如下结构：
+
+```html
+<div class="post">
+  <div class="xxxxx">广告内容</div>
+  <div class="post-header"><h1>文章标题</h1></div>
+  <div class="post-content">文章内容</div>
+  <div class="xxxxx">更多推荐</div>
+</div>
+```
+且其中的「广告内容」和「更多推荐」的 class 属性的值是随机生成的，其位置随机出现。这个时候可以通过 hideExcept 参数来反选它们，如：
+
+```json
+{
+  ...
+  "hideExcept": [
+    {"inside": ".post", "except": [".post-header", ".post-content"]}
+  ]
+}
+```
+
+该 Plan 会把 ".post" 选中到的节点内部的子节点进行隐藏，除了 ".post-header" 和 ".post-content" 指定的节点。（MaoXian 不会裁剪隐藏的节点）。
+
 
 ### show 参数的使用
 
