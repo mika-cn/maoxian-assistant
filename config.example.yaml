@@ -1,0 +1,3 @@
+
+output_dir: 'public/dev'
+deploy_path: 'http://dev.pc:3000/maoxian-web-clipper/tmp/assistant'

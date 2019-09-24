@@ -1,0 +1,15 @@
+---
+# meta infos
+name: 'Zhong-Hua'
+version: 20190831
+description: Zhong Hua
+
+# plans
+plans:
+- name: www.ituring.com.cn
+  pattern: https://www.ituring.com.cn/article/*
+  pick: div.article
+
+- name: ruby-china.org
+  pattern: https://ruby-china.org/topics/*
+  pick: '.topic-detail'
