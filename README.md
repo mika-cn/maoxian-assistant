@@ -238,7 +238,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
   "pattern": "https://www.example.org/post/*",
   "pick": "article",
   "hide": "div.comment",
-  "chAttr: [
+  "chAttr": [
     {
       "type": "self.remove",
       "pick": ".section",

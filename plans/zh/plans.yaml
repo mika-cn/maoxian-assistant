@@ -1,15 +1,70 @@
 ---
 # meta infos
 name: 'Zhong-Hua'
-version: 20190831
+version: 20190908
 description: Zhong Hua
 
-# plans
 plans:
+# general
+
+# ==========================================
+# geek / IT
+# ==========================================
+
 - name: www.ituring.com.cn
   pattern: https://www.ituring.com.cn/article/*
   pick: div.article
 
+- name: linux.cn
+  pattern: https://linux.cn/article-*.html
+  pick: div#article_content
+
+- name: solidot.org
+  pattern: https://www.solidot.org/story
+  pick: div.p_mainnew
+
+- name: article.guokr.com
+  pattern: http*://www.guokr.com/article/
+  pick: div[class*=ArticleContent]
+
+- name: iplaysoft.com
+  pattern: https://www.iplaysoft.com/*.html
+  pick: div.entry-content
+
+
+- name: segmentfault.com
+  pattern: https://segmentfault.com/a/
+  pick: div.article__content
+
 - name: ruby-china.org
   pattern: https://ruby-china.org/topics/*
   pick: '.topic-detail'
+
+- name: post.juejin.im
+  pattern: http*://juejin.im/post/*
+  pick: div.article-content
+
+- name: blog.iteye.com
+  pattern: http*://*.iteye.com/blog/*
+  pick: '#blog_content'
+  hide:
+    - '#bottoms'
+    - '.blog_bottom'
+    - '.blog_nav'
+    - '.blog_comment'
+
+- name: cnblogs.com
+  pattern: https://www.cnblogs.com/**/*/*.html
+  pick: div#cnblogs_post_body
+
+- name: v2ex.com
+  pattern: https://www.v2ex.com/t/
+  pick: div.topic_content
+
+- name: hacpai.com
+  pattern: https://hacpai.com/article/
+  pick: '.article-content'
+
+- name: ruanyifeng.com
+  pattern: http://www.ruanyifeng.com/blog/**/*/*.html
+  pick: div#main-content

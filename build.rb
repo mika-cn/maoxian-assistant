@@ -34,7 +34,7 @@ module Build
       size: yaml['plans'].size,
       latestVersion: yaml['version'],
       url: url,
-      update_url: update_url
+      updateUrl: update_url
     }
 
     mkdir(indexFilename)
