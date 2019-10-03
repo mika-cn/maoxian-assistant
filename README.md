@@ -5,7 +5,7 @@
 
 ## 背景
 
-由于 MaoXian Web Clipper 裁剪网页的时候，裁剪的是当前状态下的网页，并且不会保存任何脚本文件（即 javascript）。 这意味着在一些情况下，我们需要对网页进行一些操作后，才能获得一个较好的裁剪结果。比如： 一篇文章里的图片显示的都是缩略图，而你想保存的是原图；或者是你不想保存选区内的按钮、评论等无关内容；又或者是网页上的某些区域是可折叠的，需要在裁剪前把它们都展开。「MaoXian 助手」就是为了解决这些较常见的问题。
+由于 MaoXian Web Clipper 裁剪网页的时候，裁剪的是当前状态下的网页，并且不会保存任何脚本文件（即 javascript）。 这意味着在一些情况下，我们需要对网页进行一些操作后，才能获得一个较好的裁剪结果。比如： 一篇文章里的图片显示的都是缩略图，而你想保存的是原图；或者是你不想保存选区内的按钮、评论等无关内容；又或者是网页上的某些区域是可折叠的，需要在裁剪前把它们都展开。开发「MaoXian 助手」就是为了解决这些较常见的问题。
 
 在集成「MaoXian 助手」之后，MaoXian Web Clipper 的裁剪流程也完整了起来。
 
@@ -45,11 +45,31 @@
 
 #### Pattern 参数的使用
 
-Pattern 参数描述了该 Plan 会应用到哪一类网址上，目前支持 `*` 和 `**`。 `*` 号不会匹配路径分隔符 `/`，`**` 可匹配零个或零个以上的目录。
+Pattern 参数描述了该 Plan 会应用到哪一类网址上。
 
-假设我们要匹配的网址为 `https://example.org/blog/javascript/2017/01/05/awesome-article.html` ，里面 /blog 为固定不变的部分，/javascript 为文章分类（不知道有没有子分类），后面是年月日，最后是文章名。可以用 `https://example.org/blog/**/*/*/*/*/*.html`这个 Pattern 来匹配。 中间用了四个 `*` 号来匹配分类和年月日，前面的 `**` 匹配可能存在的子分类。
+目前支持的匹配符有 "*" 和 "**"。
 
-当然，上面这个例子也可以使用 `https://example.org/blog` 作为 Pattern ，来直接匹配以该模式打头的网址，不同的 Pattern，严格程度不同，根据需求给出 Pattern 即可。
+##### 星匹配符（\*）
+
+* 匹配开头
+
+比如：匹配子域名，`*.example.org` 可匹配任何以 "example.org" 结尾的域名，例如： www.example.org，foo.bar.example.org。
+
+* 匹配结尾
+
+比如：匹配网址协议，`http*` 即可以匹配到 http 也可以匹配到 https。
+
+* 匹配整个部分，常用于匹配网址路径的一个目录。
+
+比如：使用 `https://example.org/*/index.html`，可以匹配到 https://example.org/blog/index.html。但是无法匹配到 https://example.org/blog/jack/index.html，因为 "*" 号不匹配目录分隔符 "/"。
+
+##### 双星匹配符（\*\*）
+
+一般使用双星匹配符，来匹配零个或零个以上的目录。
+
+假如我们要匹配的网址为 https://example.org/blog/javascript/2017/01/05/awesome-article.html ，里面 /blog 为固定不变的部分，/javascript 为文章分类（不知道有没有子分类），后面是年月日，最后是文章名。可以用 `https://example.org/blog/**/*/*/*/*/*.html`这个 Pattern 来匹配。 中间用了四个 "*" 号来匹配分类和年月日，前面的 "**" 匹配可能存在的子分类。
+
+上面这个例子也可以使用 `https://example.org/blog` 作为 Pattern ，来直接匹配以该模式打头的网址，不同的 Pattern，严格程度不同，根据需求给出 Pattern 即可。
 
 
 #### 选择器
@@ -93,11 +113,9 @@ show 参数是用于显示隐藏的块状元素的，属性的值也是选择器
 
 #### chAttr 参数的使用
 
-chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可选项，只有在需要的时候，才需要提供。 chAttr 的值为一个 $action 的数组，$action 是一个 Object。Object 的常用参数有三个 `type`, `pick`, `attr`。不同的 `type` 会跟不同的的参数。下面我们用例子来说明 chAttr 的用法。
+chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可选项，只有在需要的时候，才需要提供。 chAttr 的值为一个 $action 的数组，$action 是一个 Object。$action 的常用参数有三个 `type`, `pick` 和 `attr`。不同的 `type` 会跟不同的的参数。下面我们用例子来说明 chAttr 的用法。
 
----------------------------
-
-1. 假设有一个网页，显示的是低质量的图，这些图的 `src` 属性是一个有规律的地址，比如： `https://www.example.org/images/awesome-pic-small.jpg`  ，而某些操作后，可能就变为 `https://www.example.org/images/awesome-pic-big.jpg` 。我们希望裁剪的是后者，而非前者，可以用下面这个 Plan 来实现：
+**例1**： 假设有一个网页，显示的是低质量的图，这些图的 `src` 属性是一个有规律的地址，比如： https://www.example.org/images/awesome-pic-small.jpg  ，而某些操作后，可能就变为 https://www.example.org/images/awesome-pic-big.jpg 。我们希望裁剪的是后者，而非前者，可以用下面这个 Plan 来实现：
 
 ```json
 {
@@ -132,7 +150,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ---------------------------
 
-2. 假设有一个网页，显示的是低质量的图，它的高质量图片地址，放在了 img 标签的另一个属性上。图片的 html 如下：
+**例2**： 假设有一个网页，显示的是低质量的图，它的高质量图片地址，放在了 img 标签的另一个属性上。图片的 html 如下：
 
 ```html
 <img src="/image/pic-abc.jpg" hq-src="/image/pic-bdf.jpg" />
@@ -166,7 +184,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ---------------------------
 
-3. 假设有一个网页，显示的是低质量的图，并且这些图片本身是一个链接，可以通过点击图片查看原图， 图片的 html 如下：
+**例3**： 假设有一个网页，显示的是低质量的图，并且这些图片本身是一个链接，可以通过点击图片查看原图， 图片的 html 如下：
 
 ```html
 <a href="/image/awesome-pic-bdf.jpg" >
@@ -202,7 +220,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ---------------------------
 
-4. 除了上面这几种 $action, chAttr 还对 class 属性的修改做了支持。请看下方 Plan:
+**例4**： 除了上面这几种 $action, chAttr 还对 class 属性的修改做了支持。请看下方 Plan:
 
 ```json
 {
@@ -255,7 +273,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 所有的 plan 都存储在 `plans` 目录下，比如 `plans/default/plans.yaml` 里面存储的是默认的 plan 信息，而 `plans/zh/plans.yaml` 存储的是中文网站相关的 plan 信息。最终所有的 `plans.yaml` 会在 `build.rb` 这个脚本的渲染下，变成 JSON 的格式。
 
-我们倾向于使用 YAML 来维护所有的 Plan，这样会整个文件看起来更清晰, 并且可以加上一些注释。如果你没用过 YAML 这种格式也没有关系。系统有个 `json2yaml.rb` 脚本，专门可以用来把 JSON 格式转换为 YAML 格式。
+我们倾向于使用 YAML 来维护所有的 Plan，这样会整个文件看起来更清晰, 并且可以加上一些注释。如果你没用过 YAML 这种格式也没有关系。项目里有个 `json2yaml.rb` 脚本，专门可以用来把 JSON 格式转换为 YAML 格式。
 
 使用方式如下(把你写的 json 文本复制到 tmp/myplans.json ):
 
