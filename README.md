@@ -3,6 +3,18 @@
 
 为了更方便 MaoXian Web Clipper 用户在对网页进行 “裁剪” 之前执行一些操作，我们把「MaoXian 助手」集成到扩展中。该项目用于收集和分享各个用户编写的 “Plan”。
 
+## 订阅地址
+
+```shell
+
+# 默认列表
+http://mika-cn.github.io/maoxian-web-clipper/assistant/plans/default/index.json
+
+# 华人网址
+http://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
+
+```
+
 ## 背景
 
 由于 MaoXian Web Clipper 裁剪网页的时候，裁剪的是当前状态下的网页，并且不会保存任何脚本文件（即 javascript）。 这意味着在一些情况下，我们需要对网页进行一些操作后，才能获得一个较好的裁剪结果。比如： 一篇文章里的图片显示的都是缩略图，而你想保存的是原图；或者是你不想保存选区内的按钮、评论等无关内容；又或者是网页上的某些区域是可折叠的，需要在裁剪前把它们都展开。开发「MaoXian 助手」就是为了解决这些较常见的问题。
