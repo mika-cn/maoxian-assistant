@@ -68,3 +68,15 @@ plans:
 - name: ruanyifeng.com
   pattern: http://www.ruanyifeng.com/blog/**/*/*.html
   pick: div#main-content
+  
+- name: csdn
+  pattern: https://blog.csdn.net/.*
+  pick: div.output_wrapper
+  hide:
+  - div.btn-readmore
+  - "#article_content > div.person-messagebox"
+  chAttr:
+  - type: self.remove
+    pick: ".article_content"
+    attr: attr
+    value: height
