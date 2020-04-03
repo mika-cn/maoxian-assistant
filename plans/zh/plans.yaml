@@ -68,3 +68,20 @@ plans:
 - name: ruanyifeng.com
   pattern: http://www.ruanyifeng.com/blog/**/*/*.html
   pick: div#main-content
+
+- name: sspai
+  pattern: https://sspai.com/post/**
+  pick: ".article-body > .articleWidth-content > .content"
+  hide:
+  - ".bgGrey"
+  - ".article-side"
+  chAttr:
+  - type: self.attr
+    pick: ".content img"
+    attr: src
+    tAttr: data-original
+    
+- name: zhuanlan
+  pattern: https://zhuanlan.zhihu.com/p/**
+  pick: ".Post-RichText"
+  hide: []
