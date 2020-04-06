@@ -2,5 +2,6 @@
 config.production.yaml
 config.yaml
 public
+scripts
 tmp/*.json
 tmp/*.yaml

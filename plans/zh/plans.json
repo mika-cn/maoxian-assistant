@@ -1,0 +1,115 @@
+{
+  "name": "Zhong-Hua",
+  "version": 20200406,
+  "description": "Zhong Hua",
+  "plans": [
+    {
+      "name": "www.ituring.com.cn",
+      "pattern": "https://www.ituring.com.cn/article/*",
+      "pick": "div.article",
+      "tags": ["IT"]
+    },
+    {
+      "name": "linux.cn",
+      "pattern": "https://linux.cn/article-*.html",
+      "pick": "div#article_content",
+      "tags": ["IT", "Linux"]
+    },
+    {
+      "name": "solidot.org",
+      "pattern": "https://www.solidot.org/story",
+      "pick": "div.p_mainnew",
+      "tags": ["IT", "news", "geek"]
+    },
+    {
+      "name": "article.guokr.com",
+      "pattern": "http*://www.guokr.com/article/",
+      "pick": "div[class*=ArticleContent]",
+      "tags": ["science", "nature"]
+    },
+    {
+      "name": "iplaysoft.com",
+      "pattern": "https://www.iplaysoft.com/*.html",
+      "pick": "div.entry-content",
+      "tags": ["IT", "software", "share"]
+    },
+    {
+      "name": "segmentfault.com",
+      "pattern": "https://segmentfault.com/a/",
+      "pick": "div.article__content",
+      "tags": ["IT", "geek"]
+    },
+    {
+      "name": "ruby-china.org",
+      "pattern": "https://ruby-china.org/topics/*",
+      "pick": ".topic-detail",
+      "tags": ["IT", "community", "ruby"]
+    },
+    {
+      "name": "post.juejin.im",
+      "pattern": "http*://juejin.im/post/*",
+      "pick": "div.article-content",
+      "tags": ["IT", "community", "frontend"]
+    },
+    {
+      "name": "blog.iteye.com",
+      "pattern": "http*://*.iteye.com/blog/*",
+      "pick": "#blog_content",
+      "hide": [
+        "#bottoms",
+        ".blog_bottom",
+        ".blog_nav",
+        ".blog_comment"
+      ],
+      "tags": ["IT", "blog"]
+    },
+    {
+      "name": "cnblogs.com",
+      "pattern": "https://www.cnblogs.com/**/*/*.html",
+      "pick": "div#cnblogs_post_body",
+      "tags": ["IT", "blog"]
+    },
+    {
+      "name": "v2ex.com",
+      "pattern": "https://www.v2ex.com/t/",
+      "pick": "div.topic_content",
+      "tags": ["IT", "forum", "share", "creation"]
+    },
+    {
+      "name": "hacpai.com",
+      "pattern": "https://hacpai.com/article/",
+      "pick": ".article-content",
+      "tags": ["geek", "forum"]
+    },
+    {
+      "name": "ruanyifeng.com",
+      "pattern": "http://www.ruanyifeng.com/blog/**/*/*.html",
+      "pick": "div#main-content",
+      "tags": ["IT", "blog", "frontend"]
+    },
+    {
+      "name": "sspai",
+      "pattern": "https://sspai.com/post/**",
+      "pick": ".article-body > .articleWidth-content > .content",
+      "hide": [
+        ".bgGrey",
+        ".article-side"
+      ],
+      "chAttr": [
+        {
+          "type": "self.attr",
+          "pick": ".content img",
+          "attr": "src",
+          "tAttr": "data-original"
+        }
+      ],
+      "tags": ["news"]
+    },
+    {
+      "name": "zhuanlan",
+      "pattern": "https://zhuanlan.zhihu.com/p/**",
+      "pick": ".Post-RichText",
+      "tags": ["knowledge", "share"]
+    }
+  ]
+}

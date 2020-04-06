@@ -3,6 +3,12 @@
 
 为了更方便 MaoXian Web Clipper 用户在对网页进行 “裁剪” 之前执行一些操作，我们把「MaoXian 助手」集成到扩展中。该项目用于收集和分享各个用户编写的 “Plan”。
 
+> **注：** MaoXian Web Clipper 已经支持记住选区功能，如果你只是懒的每次都点选，则记住选区功能会很适合你，推荐你前往扩展的设置页面开启试试。如果你想更好地控制你要裁剪的内容，或者遇到一些难搞的网页，那么请往下看 :)
+
+## 项目地址
+
+* [传送门](https://github.com/mika-cn/maoxian-assistant)
+
 ## 背景
 
 由于 MaoXian Web Clipper 裁剪网页的时候，裁剪的是当前状态下的网页，并且不会保存任何脚本文件（即 javascript）。 这意味着在一些情况下，我们需要对网页进行一些操作后，才能获得一个较好的裁剪结果。比如： 一篇文章里的图片显示的都是缩略图，而你想保存的是原图；或者是你不想保存选区内的按钮、评论等无关内容；又或者是网页上的某些区域是可折叠的，需要在裁剪前把它们都展开。开发「MaoXian 助手」就是为了解决这些较常见的问题。
@@ -15,7 +21,7 @@
 
 如上的四个步骤中，「MaoXian 助手」主要用于「准备」阶段，也涉及到「选择」阶段（不过不多）。它的工作方式有点像「广告屏蔽扩展」，需要针对不同的网站，编写不同的操作（在「MaoXian 助手里」我们称其为 Plan）。这也意味着它解决问题的多少取决于我们适配的网站的多少。
 
-## 开始使用
+## 开始使用 {#public-subscriptions}
 
 你可以在 **扩展设置页面 > 毛线助手** 页面启用该功能， 自己编写 Plan 或者订阅公开的 Plan。
 
@@ -23,10 +29,10 @@
 
 ```shell
 # 默认网站列表（全球性）
-http://mika-cn.github.io/maoxian-web-clipper/assistant/plans/default/index.json
+https://mika-cn.github.io/maoxian-web-clipper/assistant/plans/default/index.json
 
 # 华人网站列表
-http://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
+https://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
 
 ```
 
@@ -38,7 +44,7 @@ http://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
 
 如果你会编程（只需要懂一点 CSS，了解 JSON 格式就行），那么恭喜你，你完全有能力编写 Plan，并分享给其他人，具体查看下一节。
 
-## 如何编写 Plan
+## 如何编写 Plan {#how-to-write-a-plan}
 
 ### 流程
 
@@ -57,6 +63,7 @@ http://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
 | hide | 选择器 | 选填 | 用于选择「要剔除的元素」，可提供多个选择器，详情请看下文 |
 | show | 选择器 | 选填 | 用于显示隐藏的「块状元素」，可提供多个选择器，详情请看下文 |
 | chAttr | 元组 | 选填 | 用于修改元素的属性值，提供了多种修改属性的方式，详情请看下文 |
+| tags | 元祖   | 选填 | 用于编注网站属性，使这些 plan 更好管理 |
 
 
 ### Pattern 参数的使用
@@ -149,7 +156,8 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "subStr": "small",
       "newStr": "big"
     }
-  ]
+  ],
+  "tags": ["IT", "blog"]
 }
 ```
 
@@ -195,7 +203,8 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "attr": "src",
       "tAttr": "hq-src"
     }
-  ]
+  ],
+  "tags": ["IT", "blog"]
 }
 ```
 * type 为 **self.attr** ，它表明我们要用**找到元素的另一个属性的值**，来重写 attr 指定的属性。
@@ -233,7 +242,8 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "attr": "src",
       "tAttr": "href"
     }
-  ]
+  ],
+  "tags": ["IT", "blog"]
 }
 ```
 
@@ -262,7 +272,8 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "value": "folded",
       "sep": " "
     }
-  ]
+  ],
+  "tags": ["IT", "blog"]
 }
 ```
 
@@ -288,42 +299,39 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "pick": ".section",
       "value": "folded"
     }
-  ]
+  ],
+  "tags": ["IT", "blog"]
 }
 ```
 
 一般可以使用这两种 $action ，对网页折叠部分进行控制，使其达到我们想要的状态。这种方式不像上文的 show 参数那样粗暴地对 display 进行操控。
 
+### tags 参数的使用
+
+虽然 Plan 的 tags 属性是非必须的，但还是建议你为 Plan 打上标签，以便后期，我们能更好地管理他们。
+
+### frame 参数（极少用到）
+
+frame 参数有两个可选值，`top` 和 `child`，默认为 `top`。`top` 表明该 Plan 会应用到最上方的 frame，也就是地址栏对应的网页本身，而 `child` 则表明该 Plan 会应用到某个 `<iframe>` 或 `<frame>` 中，并且 `pick` 属性会被忽略，也就是说 `hide`，`show`，`chAttr` 属性的作用范围是 document，而不是原来的 `pick` 选中的那个元素。
 
 ## 贡献 Plan
 
-所有的 plan 都存储在 `plans` 目录下，比如 `plans/default/plans.yaml` 里面存储的是默认的 plan 信息，而 `plans/zh/plans.yaml` 存储的是中文网站相关的 plan 信息。最终所有的 `plans.yaml` 会在 `build.rb` 这个脚本的渲染下，变成 JSON 的格式。
-
-我们倾向于使用 YAML 来维护所有的 Plan，这样会整个文件看起来更清晰, 并且可以加上一些注释。如果你没用过 YAML 这种格式也没有关系。项目里有个 `json2yaml.rb` 脚本，专门可以用来把 JSON 格式转换为 YAML 格式。
-
-使用方式如下(把你写的 json 文本复制到 tmp/myplans.json ):
-
-```shell
-$ ./json2yaml.rb tmp/myplans.json > tmp/myplans.yaml
-```
-
-再把 tmp/myplans.yaml 里面的 Plan 复制到对应的 plans.yaml （比如： plans/zh/plans.yaml ），提个 PR （pull request）就完成了。
+所有的 plan 都存储在 `plans` 目录下，比如 `plans/default/plans.json` 里面存储的是默认的 plan 信息，而 `plans/zh/plans.json` 存储的是中文网站相关的 plan 信息。最终所有的 `plans.json` 会在 `build.rb` 这个脚本的渲染下，变成可订阅的形式。
 
 
-### plans.yaml 的结构解释
+你可以通过下方几种方式把 plan 分享出来：
 
-```yaml
-# name 为我们为该 plan 列表取的一个名字，只能使用字母和中划线 "-" 和 下划线 "_"
-name: 'default'
+* 通过 Github 建 Pull Request 的形式。（把你编写的 plan 复制到对应的 plans.json 文件即可）
+* 通过 Github 建 issue。（把 plan 贴上即可）
+* 通过发邮件给开发者（i.mika[AT]tutanota.com），直接发送内容或者发送 patch。
 
-# version 为版本信息，我们使用年月日作为版本，在每次发布之前才需要修改它
-version: '20190101'
+### plans.json 的字段解释
 
-# description 为描述信息
-description: 'default plans'
+* name 为我们取的一个名字，只能使用字母和中划线 `-` 和 下划线 `_`
+* version 为版本信息，我们使用年月日作为版本，在每次发布之前才需要修改它
+* description 为描述信息
+* plans 为我们维护的 plan 集合，是一个元祖（数组），上一节，提到的复制，即复制到 plans 下面即可。
 
-# plans 为我们维护的 plan 集合，是一个元祖（数组）
-# 上一节，提到的复制，即复制到 plans 下面即可。
-plans:
-  - ...
-```
+## 最后
+
+如果你对「毛线助手」有什么看法或建议，请[告诉我们](https://github.com/mika-cn/maoxian-assistant/issues)。
