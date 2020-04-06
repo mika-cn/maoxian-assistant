@@ -1,0 +1,3 @@
+
+output_dir: 'public/dist'
+deploy_path: 'https://mika-cn.github.io/maoxian-web-clipper/assistant'
