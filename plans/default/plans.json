@@ -36,7 +36,7 @@
           "pick": "h2.section-heading",
           "attr": "style",
           "value": "width: 100%",
-          "step": ";"
+          "sep": ";"
         }
       ]
     }
