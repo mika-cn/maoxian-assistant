@@ -17,6 +17,28 @@
         "table.metadata"
       ],
       "tags": ["knowledge", "wiki"]
+    },
+    {
+      "name": "Wikipedia Mobile View (by Altair Wei)",
+      "pattern": "https://*.m.wikipedia.org/*/",
+      "pick": "#content",
+      "hide": [
+        ".page-actions-menu",
+        "#toc",
+        ".mw-editsection",
+        "h2 > div.mw-ui-icon",
+        "table.box-Unreferenced",
+        "table.box-More_citations_needed"
+      ],
+      "chAttr": [
+        {
+          "type": "self.add",
+          "pick": "h2.section-heading",
+          "attr": "style",
+          "value": "width: 100%",
+          "sep": ";"
+        }
+      ]
     }
   ]
 }
