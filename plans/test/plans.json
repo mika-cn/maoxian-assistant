@@ -1,11 +1,11 @@
 {
   "name": "test",
-  "version": 20190903,
+  "version": 20200406,
   "description": "this plan list is just for testing only.",
   "plans": [
     {
       "name": "dev.pc",
-      "pattern": "http://dev.*/maoxian-web-clipper/tmp/test-page/test-hq-img.html",
+      "pattern": "http://dev.*/maoxian-web-clipper/**/test-hq-img.html",
       "pick": "body",
       "chAttr": [
         {
@@ -36,7 +36,7 @@
     },
     {
       "name": "dev.pc",
-      "pattern": "http://dev.*/maoxian-web-clipper/tmp/test-page/iframe*",
+      "pattern": "http://dev.*/maoxian-web-clipper/**/iframe*",
       "chAttr": [
         {
           "pick": "img",
@@ -65,7 +65,7 @@
     },
     {
       "name": "dev.pc",
-      "pattern": "http://dev.*/maoxian-web-clipper/tmp/test-page/test-tab.html",
+      "pattern": "http://dev.*/maoxian-web-clipper/**/test-tab.html",
       "pick": "body",
       "chAttr": [
         {
