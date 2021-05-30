@@ -21,7 +21,7 @@
     {
       "name": "Wikipedia Mobile View (by Altair Wei)",
       "pattern": "https://*.m.wikipedia.org/*/",
-      "pick": "#content",
+      "pick": "C||#content",
       "hide": [
         ".page-actions-menu",
         "#toc",
