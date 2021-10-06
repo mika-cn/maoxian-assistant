@@ -1,6 +1,6 @@
 {
   "name": "Zhong-Hua",
-  "version": 20200406,
+  "version": 20211006,
   "description": "Zhong Hua",
   "plans": [
     {
@@ -109,7 +109,21 @@
       "name": "zhuanlan",
       "pattern": "https://zhuanlan.zhihu.com/p/**",
       "pick": ".Post-RichText",
-      "tags": ["knowledge", "share"]
+      "hide": [
+        "figure > noscript"
+      ],
+      "chAttr": [
+        {
+          "type": "self.attr",
+          "pick": "figure > img",
+          "attr": "src",
+          "tAttr": "data-actualsrc"
+        }
+      ],
+      "tags": [
+        "knowledge",
+        "share"
+      ]
     }
   ]
 }
