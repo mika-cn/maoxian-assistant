@@ -1,6 +1,6 @@
 {
   "name": "default",
-  "version": 20190810,
+  "version": 20211006,
   "description": "default plans",
   "plans": [
     {
@@ -32,7 +32,7 @@
       ],
       "chAttr": [
         {
-          "type": "self.add",
+          "type": "split2list.add",
           "pick": "h2.section-heading",
           "attr": "style",
           "value": "width: 100%",

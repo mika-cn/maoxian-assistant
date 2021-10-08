@@ -97,7 +97,7 @@
       ],
       "chAttr": [
         {
-          "type": "self.attr",
+          "type": "assign.from.self-attr",
           "pick": ".content img",
           "attr": "src",
           "tAttr": "data-original"
@@ -114,7 +114,7 @@
       ],
       "chAttr": [
         {
-          "type": "self.attr",
+          "type": "assign.from.self-attr",
           "pick": "figure > img",
           "attr": "src",
           "tAttr": "data-actualsrc"
