@@ -138,7 +138,7 @@ show 参数是用于显示「隐藏的块状元素」的，属性的值也是选
 
 ### chAttr 参数的使用
 
-chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可选项，只有在需要的时候，才需要提供。 chAttr 的值为一个 $action 的数组，$action 是一个 Object。$action 的常用参数有三个 `type`, `pick` 和 `attr`。不同的 `type` 会跟不同的的参数。下面我们用例子来说明 chAttr 的用法。
+chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可选项，只有在需要的时候，才需要提供。 chAttr 的值为一个 $action 的元组，$action 是一个 Object。$action 的常用参数有三个 `type`, `pick` 和 `attr`。不同的 `type` 会跟不同的的参数。下面我们用一些常见的例子来说明 chAttr 的用法。
 
 **例1**： 假设有一个网页，显示的是低质量的图，这些图的 `src` 属性是一个有规律的地址，比如： https://www.example.org/images/awesome-pic-small.jpg  ，而某些操作后，可能就变为 https://www.example.org/images/awesome-pic-big.jpg 。我们希望裁剪的是后者，而非前者，可以用下面这个 Plan 来实现：
 
@@ -150,7 +150,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
   "hide": "div.comment",
   "chAttr": [
     {
-      "type": "self.replace",
+      "type": "replace.last-match",
       "pick": "img",
       "attr": "src",
       "subStr": "small",
@@ -163,15 +163,15 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 上面 Plan 中的 chAttr 参数的值是一个数组，里面包含了一个 $action，它的各个属性解读如下：
 
-* type 的值为 **self.replace** ，表示这个 $action 是将**找到的元素的属性值的某个部分**，进行替换操作。
+* type 的值为 **replace.last-match** ，表示这个 $action 是将**找到的元素的属性值的某个部分**，进行替换操作，只会替换最后一个匹配。
 * pick 的类型为选择器，用来选中要操作的元素，我们选中了所有 img 标签。
 * attr 的值为要操作的属性名字，此例中，我们选择的是 src 属性。
 * subStr 的值为**要替换掉的那部分**，我们填入的是 small。
 * newStr 的值是替换项，也就是说我们用 newStr 的值 big，替换 subStr 的值 small。
 
-我们这里说的替换操作，不会替换所有找到的 subStr，而是只替换最后一个。
-
 **注意: $action 的 pick 参数的查找范围为「要裁剪元素的内部」**，在此例子中，查找范围是第一个 article 元素的内部。
+
+还有一种和这个类似的 $action，它的 type 为 **replace.all** ，作用是替换所有找到的匹配，较少使用。
 
 
 
@@ -198,7 +198,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
   ],
   "chAttr": [
     {
-      "type": "self.attr",
+      "type": "assign.from.self-attr",
       "pick": "img",
       "attr": "src",
       "tAttr": "hq-src"
@@ -207,7 +207,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
   "tags": ["IT", "blog"]
 }
 ```
-* type 为 **self.attr** ，它表明我们要用**找到元素的另一个属性的值**，来重写 attr 指定的属性。
+* type 为 **assign.from.self-attr** ，它表明我们要用**找到元素的另一个属性的值**，来重写 attr 指定的属性。
 * pick 的类型为选择器，用来选中要操作的元素，我们选中了所有 img 标签。
 * attr 的值为要操作的属性名字，此例中，我们选择的是 src 属性。
 * tAttr 的值为目标属性（target attribute）的名字， 此例中，我们用 hq-src 属性重写 src 属性。
@@ -237,7 +237,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
   ],
   "chAttr": [
     {
-      "type": "parent.attr",
+      "type": "assign.from.parent-attr",
       "pick": "img",
       "attr": "src",
       "tAttr": "href"
@@ -247,10 +247,10 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 }
 ```
 
-* type 为 **parent.attr** ，它表明我们要用找到元素的**父元素**的一个属性的值，来重写 attr 指定的属性。
+* type 为 **assign.from.parent-attr** ，它表明我们要用找到元素的**父元素**的一个属性的值，来重写 attr 指定的属性。
 * pick 的类型为选择器，用来选中要操作的元素，我们选中了所有 img 标签。
-* attr 的值为要操作的属性名字，此例中，我们选择的是 src 属性。
-* tAttr 的值为目标属性（target attribute）的名字， 此例中，我们用父元素的 href 属性重写 src 属性。
+* attr 的值为要操作的属性名字，此例中，我们选择的是图片的 src 属性。
+* tAttr 的值为目标属性（target attribute）的名字， 此例中，我们用父元素的 href 属性重写图片的 src 属性。
 
 
 ------------------------------
@@ -266,7 +266,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
   "hide": "div.comment",
   "chAttr": [
     {
-      "type": "self.remove",
+      "type": "split2list.remove",
       "pick": ".section",
       "attr": "class",
       "value": "folded",
@@ -277,32 +277,13 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 }
 ```
 
-* type 为 **self.remove** ，它表明我们要用操作的属性具有的值比较特殊，可以通过某个分隔符分成多个部分，该类型表明要移除其中一部分。
+* type 为 **split2list.remove** ，它表明我们要用操作的属性具有的值比较特殊，可以通过某个分隔符分成多个部分，该类型表明要移除其中一部分。
 * pick 的类型为选择器，用来选中要操作的元素，我们选中了所有包含类名为 section 的标签。
-* attr 的值为要操作的属性名字，此例中，我们选择的是 class 属性。此项可不填，默认为 class。
+* attr 的值为要操作的属性名字，此例中，我们选择的是 class 属性。
 * value 为要移除的那部分。
-* sep 为分隔符，此项可不填，默认为空格
+* sep 为分隔符
 
-还有一种 $action, 跟该例子类似，它的类型为 **self.add**，该值表明要往属性里面添加一项。
-
-该 Plan 出于演示的目的，列出了所有的参数，若忽略可不填的参数，可简化为：
-
-```json
-{
-  "name": "example.org",
-  "pattern": "https://www.example.org/post/*",
-  "pick": "article",
-  "hide": "div.comment",
-  "chAttr": [
-    {
-      "type": "self.remove",
-      "pick": ".section",
-      "value": "folded"
-    }
-  ],
-  "tags": ["IT", "blog"]
-}
-```
+还有一种 $action, 跟该例子类似，它的类型为 **split2list.add**，该类型表明要往属性里面添加一项。
 
 一般可以使用这两种 $action ，对网页折叠部分进行控制，使其达到我们想要的状态。这种方式不像上文的 show 参数那样粗暴地对 display 进行操控。
 
@@ -312,7 +293,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ### frame 参数（极少用到）
 
-frame 参数有两个可选值，`top` 和 `child`，默认为 `top`。`top` 表明该 Plan 会应用到最上方的 frame，也就是地址栏对应的网页本身，而 `child` 则表明该 Plan 会应用到某个 `<iframe>` 或 `<frame>` 中，并且 `pick` 属性会被忽略，也就是说 `hide`，`show`，`chAttr` 属性的作用范围是 document，而不是原来的 `pick` 选中的那个元素。
+frame 参数有两个可选值，`top` 和 `child`，默认为 `top`。`top` 表明该 Plan 会应用到最上方的 frame，也就是地址栏对应的网页本身，而 `child` 则表明该 Plan 会应用到某个 `<iframe>` 或 `<frame>` 中，此时 `pick` 属性会被忽略，并且 `hide`，`show`，`chAttr` 属性的作用范围是子 frame 的 document，而不是原来的 `pick` 选中的那个元素。
 
 ## 贡献 Plan
 
