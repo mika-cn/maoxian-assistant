@@ -12,5 +12,6 @@ class MxPlan
   optional_attr :chAttr, collection: true, klass: ::MxPlanAction
   optional_attr :tags
   optional_attr :comment, to_hash: false
+  optional_attr :contributors
   optional_attr :frame, in: ['top', 'child'], default: 'top'
 end

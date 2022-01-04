@@ -1,6 +1,6 @@
 {
   "name": "Zhong-Hua",
-  "version": 20211006,
+  "version": 20220104,
   "description": "Zhong Hua",
   "plans": [
     {
@@ -46,13 +46,23 @@
       "tags": ["IT", "community", "ruby"]
     },
     {
-      "name": "post.juejin.im",
-      "pattern": "http*://juejin.im/post/*",
+      "name": "掘金",
+      "pattern": "https://juejin.im/post/*",
+      "contributors": ["CodingOX"],
       "pick": "div.article-content",
+      "hide": ["span.copy-code-btn"],
       "tags": ["IT", "community", "frontend"]
     },
     {
-      "name": "blog.iteye.com",
+      "name": "掘金",
+      "pattern": "https://juejin.cn/post/*",
+      "contributors": ["CodingOX"],
+      "pick": "div.article-content",
+      "hide": ["span.copy-code-btn"],
+      "tags": ["IT", "community", "frontend"]
+    },
+    {
+      "name": "iteye",
       "pattern": "http*://*.iteye.com/blog/*",
       "pick": "#blog_content",
       "hide": [
@@ -64,13 +74,15 @@
       "tags": ["IT", "blog"]
     },
     {
-      "name": "cnblogs.com",
+      "name": "博客园",
       "pattern": "https://www.cnblogs.com/**/*/*.html",
+      "contributors": ["CodingOX"],
       "pick": "div#cnblogs_post_body",
+      "hide": ["div.cnblogs_code_toolbar", "div.cnblogs_code_copy"],
       "tags": ["IT", "blog"]
     },
     {
-      "name": "v2ex.com",
+      "name": "v2ex",
       "pattern": "https://www.v2ex.com/t/",
       "pick": "div.topic_content",
       "tags": ["IT", "forum", "share", "creation"]
@@ -82,7 +94,7 @@
       "tags": ["geek", "forum"]
     },
     {
-      "name": "ruanyifeng.com",
+      "name": "阮一峰的博客",
       "pattern": "http://www.ruanyifeng.com/blog/**/*/*.html",
       "pick": "div#main-content",
       "tags": ["IT", "blog", "frontend"]
@@ -106,7 +118,7 @@
       "tags": ["news"]
     },
     {
-      "name": "zhuanlan",
+      "name": "知乎专栏",
       "pattern": "https://zhuanlan.zhihu.com/p/**",
       "pick": ".Post-RichText",
       "hide": [

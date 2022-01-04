@@ -19,8 +19,9 @@
       "tags": ["knowledge", "wiki"]
     },
     {
-      "name": "Wikipedia Mobile View (by Altair Wei)",
+      "name": "Wikipedia Mobile View",
       "pattern": "https://*.m.wikipedia.org/*/",
+      "contributors": ["Altair Wei (author)"],
       "pick": "#content",
       "hide": [
         ".page-actions-menu",
