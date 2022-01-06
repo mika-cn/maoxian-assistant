@@ -7,7 +7,9 @@ class MxPlan
   required_attr :name
   required_attr :pattern
   required_attr :pick, if: -> {frame == 'top'}
+  optional_attr :disabled
   optional_attr :hide
+  optional_attr :hideSibling
   optional_attr :show
   optional_attr :chAttr, collection: true, klass: ::MxPlanAction
   optional_attr :tags
