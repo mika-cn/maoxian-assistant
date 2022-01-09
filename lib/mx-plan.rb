@@ -6,7 +6,7 @@ class MxPlan
 
   required_attr :name
   required_attr :pattern
-  required_attr :pick, if: -> {frame == 'top'}
+  optional_attr :pick
   optional_attr :disabled
   optional_attr :hide
   optional_attr :hideSibling
@@ -15,5 +15,4 @@ class MxPlan
   optional_attr :tags
   optional_attr :comment, to_hash: false
   optional_attr :contributors
-  optional_attr :frame, in: ['top', 'child'], default: 'top'
 end
