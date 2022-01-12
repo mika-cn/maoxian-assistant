@@ -1,6 +1,6 @@
-require_relative 'json-object'
+require_relative '../json-object'
 
-class MxPlanAction
+class ChAttrAction
   include JsonObject
   TYPES = [
     "assign.from.value",

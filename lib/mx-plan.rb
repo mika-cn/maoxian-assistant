@@ -1,5 +1,5 @@
 require_relative 'json-object'
-require_relative 'mx-plan-action'
+require_relative 'mx-plan/ch-attr-action'
 
 class MxPlan
   include JsonObject
@@ -11,7 +11,9 @@ class MxPlan
   optional_attr :hide
   optional_attr :hideSibling
   optional_attr :show
-  optional_attr :chAttr, collection: true, klass: ::MxPlanAction
+  optional_attr :chAttr, collection: true, klass: ::ChAttrAction
+  optional_attr :form
+  optional_attr :config
   optional_attr :tags
   optional_attr :comment, to_hash: false
   optional_attr :contributors
