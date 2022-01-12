@@ -2,6 +2,7 @@ module JsonObject
 
   def self.included(klass)
     klass.extend ClassMethods
+    klass.include ConditionFns
   end
 
   module ClassMethods
@@ -18,8 +19,14 @@ module JsonObject
       @attr_defines[name.to_s] = DEFAULT_OPTIONS.merge(options).merge({required: false})
       self.attr_reader name
     end
-
   end
+
+  module ConditionFns
+    def value_in(name, *values)
+      values.any? { |value| value == self.send(name.to_sym) }
+    end
+  end
+
 
   class Collection
     include Enumerable
@@ -83,11 +90,11 @@ module JsonObject
     validate_proc = -> {
       attr_value = instance_variable_get(vname(attr))
       if attr_define[:required] && attr_value.nil?
-        return [false, "Required attribute #{attr} is not provided"]
+        return [false, "Required attribute: \"#{attr}\" is not provided"]
       end
 
       if attr_define[:in] && !attr_define[:in].include?(attr_value)
-        return [false, "The value of #{attr} must be a member of [#{attr_define[:in].map(&:to_s).join(', ')}], but it's value is #{attr_value}"]
+        return [false, "The value of #{attr} must be a member of\n [#{attr_define[:in].map(&:to_s).join(', ')}], \nbut it's value is #{attr_value}"]
       end
 
       if attr_define[:klass] && attr_value && !attr_value.valid?
