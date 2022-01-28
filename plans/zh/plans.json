@@ -7,7 +7,7 @@
         "name" : "IT之家",
         "pattern" : "https://www.ithome.com/**/*/*.htm",
         "pick" : "#paragraph",
-        "tags": ["IT","news"]
+        "tags": ["IT", "news"]
     },
     {
       "name": "www.ituring.com.cn",
