@@ -4,6 +4,12 @@
   "description": "Zhong Hua",
   "plans": [
     {
+        "name" : "IT之家",
+        "pattern" : "https://www.ithome.com/**/*/*.htm",
+        "pick" : "#paragraph",
+        "tags": ["IT","news"]
+    },
+    {
       "name": "www.ituring.com.cn",
       "pattern": "https://www.ituring.com.cn/article/*",
       "pick": "div.article",
