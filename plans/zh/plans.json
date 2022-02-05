@@ -4,6 +4,60 @@
   "description": "Zhong Hua",
   "plans": [
     {
+      "name" : "新浪微博",
+      "pattern" : "https://weibo.com/$d/*",
+      "contributors": ["Mika"],
+      "hideSibling": ["video.wbpv-tech"],
+      "chAttr": [
+        {
+          "type": "assign.from.value",
+          "pick": ".vue-recycle-scroller__item-wrapper",
+          "attr": "data-mx-sort-by-index",
+          "value": "1"
+        },
+        {
+          "type": "assign.from.value",
+          "pick": ".vue-recycle-scroller__item-view",
+          "attr": "data-mx-locked-style-position",
+          "value": "static !important"
+        },
+        {
+          "type": "assign.from.value",
+          "pick": ".vue-recycle-scroller__item-view",
+          "attr": "data-mx-locked-style-transform",
+          "value": "translateY(0px)"
+        },
+        {
+          "type": "assign.from.first-child-attr",
+          "pick": ".vue-recycle-scroller__item-view",
+          "attr": "data-mx-index",
+          "tAttr": "data-index"
+        }
+      ]
+    },
+    {
+      "name": "简书",
+      "pattern": "https://www.jianshu.com/p/*",
+      "contributors": ["Mika"],
+      "pick": "article",
+      "chAttr": [
+        {
+          "type": "assign.from.self-attr",
+          "pick": ".image-view img[data-original-src]",
+          "attr": "src",
+          "tAttr": "data-original-src"
+        }
+      ],
+      "tags": ["writing"]
+    },
+    {
+      "name": "果壳",
+      "pattern": "http*://www.guokr.com/article/",
+      "contributors": ["Mika"],
+      "pick": "div[class*=ArticleContent]",
+      "tags": ["science", "nature"]
+    },
+    {
       "name" : "IT之家",
       "pattern" : "https://www.ithome.com/**/*/*.htm",
       "contributors": [
@@ -24,42 +78,42 @@
     {
       "name": "www.ituring.com.cn",
       "pattern": "https://www.ituring.com.cn/article/*",
+      "contributors": ["Mika"],
       "pick": "div.article",
       "tags": ["IT"]
     },
     {
       "name": "linux.cn",
       "pattern": "https://linux.cn/article-*.html",
+      "contributors": ["Mika"],
       "pick": "div#article_content",
       "tags": ["IT", "Linux"]
     },
     {
-      "name": "solidot.org",
+      "name": "Solidot",
       "pattern": "https://www.solidot.org/story",
+      "contributors": ["Mika"],
       "pick": "div.p_mainnew",
       "tags": ["IT", "news", "geek"]
     },
     {
-      "name": "article.guokr.com",
-      "pattern": "http*://www.guokr.com/article/",
-      "pick": "div[class*=ArticleContent]",
-      "tags": ["science", "nature"]
-    },
-    {
-      "name": "iplaysoft.com",
+      "name": "iplaysoft",
       "pattern": "https://www.iplaysoft.com/*.html",
+      "contributors": ["Mika"],
       "pick": "div.entry-content",
       "tags": ["IT", "software", "share"]
     },
     {
       "name": "segmentfault.com",
       "pattern": "https://segmentfault.com/a/",
+      "contributors": ["Mika"],
       "pick": "div.article__content",
       "tags": ["IT", "geek"]
     },
     {
       "name": "ruby-china.org",
       "pattern": "https://ruby-china.org/topics/*",
+      "contributors": ["Mika"],
       "pick": ".topic-detail",
       "tags": ["IT", "community", "ruby"]
     },
@@ -102,24 +156,35 @@
     {
       "name": "v2ex",
       "pattern": "https://www.v2ex.com/t/",
+      "contributors": ["Mika"],
       "pick": "div.topic_content",
       "tags": ["IT", "forum", "share", "creation"]
     },
     {
       "name": "hacpai.com",
       "pattern": "https://hacpai.com/article/",
+      "contributors": ["Mika"],
       "pick": ".article-content",
       "tags": ["geek", "forum"]
     },
     {
       "name": "阮一峰的博客",
       "pattern": "http://www.ruanyifeng.com/blog/**/*/*.html",
-      "pick": "div#main-content",
+      "contributors": ["Mika"],
+      "pick": "article",
       "tags": ["IT", "blog", "frontend"]
+    },
+    {
+      "name" : "酷壳",
+      "pattern": "https://coolshell.cn/articles/*",
+      "contributors": ["Mika"],
+      "pick" : ".post-content",
+      "tags" : ["IT", "blog"]
     },
     {
       "name": "sspai",
       "pattern": "https://sspai.com/post/**",
+      "contributors": ["Mika"],
       "pick": ".article-body > .articleWidth-content > .content",
       "hide": [
         ".bgGrey",
@@ -139,6 +204,7 @@
       "name": "知乎专栏",
       "pattern": "https://zhuanlan.zhihu.com/p/**",
       "pick": ".Post-RichText",
+      "contributors": ["Mika"],
       "hide": [
         "figure > noscript"
       ],
@@ -154,6 +220,59 @@
         "knowledge",
         "share"
       ]
+    },
+    {
+      "name": "知乎回答",
+      "pattern": "https://www.zhihu.com/question/*/answer/*",
+      "contributors": ["Mika"],
+      "hide": [
+        ".CommentsV2-footer-wrapper",
+        ".Card.ViewAll",
+        ".Question-mainColumnLogin",
+        ".Topbar-options",
+        ".List-header",
+        ".ContentItem-rightButton"
+      ],
+      "chAttr": [
+        {
+          "type": "assign.from.self-attr",
+          "pick": "figure > img",
+          "attr": "src",
+          "tAttr": "data-actualsrc"
+        }
+      ],
+      "tags": ["QA", "answer", "share", "discuss"]
+    },
+    {
+      "name": "知乎问题",
+      "pattern": "https://www.zhihu.com/question/*",
+      "contributors": ["Mika"],
+      "hide": [".CommentsV2-footer-wrapper"],
+      "chAttr": [
+        {
+          "type": "split2list.remove",
+          "pick": ".ContentItem-actions",
+          "attr": "class",
+          "value": "Sticky",
+          "sep": " "
+        },
+        {
+          "type": "split2list.remove",
+          "pick": ".ContentItem-actions",
+          "attr": "class",
+          "value": "is-fixed",
+          "sep": " "
+        },
+        {
+          "type": "assign.from.self-attr",
+          "pick": "figure > img",
+          "attr": "src",
+          "tAttr": "data-actualsrc"
+        }
+      ],
+      "tags": ["QA", "question", "share", "discuss"]
     }
+
+
   ]
 }

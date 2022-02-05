@@ -39,7 +39,8 @@
           "value": "width: 100%",
           "sep": ";"
         }
-      ]
+      ],
+      "tags": ["knowledge", "wiki"]
     },
     {
       "name" : "Github",
@@ -57,6 +58,13 @@
         ".d-inline-block"
       ],
       "tags": ["IT", "geek", "git"]
+    },
+    {
+      "name": "ArchWiki",
+      "pattern": "https://wiki.archlinux.org/title/*",
+      "contributors": ["Mika"],
+      "pick": "#bodyContent",
+      "tags": ["IT", "wiki", "doc"]
     }
 
 
