@@ -1,8 +1,21 @@
 {
   "name": "Zhong-Hua",
-  "version": 20220104,
+  "version": 20220128,
   "description": "Zhong Hua",
   "plans": [
+    {
+        "name" : "IT之家",
+        "pattern" : "https://www.ithome.com/**/*/*.htm",
+        "pick" : "#paragraph",
+        "tags": ["IT", "news"]
+    },
+    {
+        "name" : "github",
+        "pattern" : "https://github.com/",
+        "pick" : [".js-discussion", ".markdown-body"],
+        "hide": [".avatar", ".avatar-parent-child", ".inline-comment-form-actions", ".flex-items-center.d-sm-flex.d-none", ".d-inline-block"],
+        "tags": ["IT", "geek", "git"]
+    },
     {
       "name": "www.ituring.com.cn",
       "pattern": "https://www.ituring.com.cn/article/*",
