@@ -40,6 +40,25 @@
           "sep": ";"
         }
       ]
+    },
+    {
+      "name" : "Github",
+      "pattern" : "https://github.com/",
+      "contributors": ["yzqzss (author)"],
+      "pick" : [
+        ".js-discussion",
+        ".markdown-body"
+      ],
+      "hide": [
+        ".avatar",
+        ".avatar-parent-child",
+        ".inline-comment-form-actions",
+        ".flex-items-center.d-sm-flex.d-none",
+        ".d-inline-block"
+      ],
+      "tags": ["IT", "geek", "git"]
     }
+
+
   ]
 }

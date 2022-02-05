@@ -4,17 +4,22 @@
   "description": "Zhong Hua",
   "plans": [
     {
-        "name" : "IT之家",
-        "pattern" : "https://www.ithome.com/**/*/*.htm",
-        "pick" : "#paragraph",
-        "tags": ["IT", "news"]
-    },
-    {
-        "name" : "github",
-        "pattern" : "https://github.com/",
-        "pick" : [".js-discussion", ".markdown-body"],
-        "hide": [".avatar", ".avatar-parent-child", ".inline-comment-form-actions", ".flex-items-center.d-sm-flex.d-none", ".d-inline-block"],
-        "tags": ["IT", "geek", "git"]
+      "name" : "IT之家",
+      "pattern" : "https://www.ithome.com/**/*/*.htm",
+      "contributors": [
+        "yzqzss (author)",
+        "Mika"
+      ],
+      "pick" : ".post_content",
+      "chAttr": [
+        {
+          "type": "assign.from.self-attr",
+          "pick": "img.lazy",
+          "attr": "src",
+          "tAttr": "data-original"
+        }
+      ],
+      "tags": ["IT", "news"]
     },
     {
       "name": "www.ituring.com.cn",
