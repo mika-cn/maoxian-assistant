@@ -77,20 +77,23 @@ https://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
 
 | 参数名 | 类型 | 是否必填 | 备注 |
 | -------- | -------- | -------- | -------- |
-| name        | 字符串 | 必填 | 起标识作用，可随便填写，一般可以直接填写域名或网站名         |
+| name        | 字符串 | 必填 | 起标识作用，可随便填写，一般可以直接填写网站名         |
 | pattern     | 字符串 | 必填 | 匹配的模式，只有网址和模式匹配，该 plan 才会被应用           |
+| contributors | 元组  | 选填 | 用于描述 plan 的作者和贡献者 |
 | disabled    | 波尔值 | 选填 | 用于表示 plan 的禁用状态 |
 | pick        | 选择器 | 选填 | 用于选择「要裁剪的节点」，可提供多个选择器，详情请看下文     |
 | hide        | 选择器 | 选填 | 用于选择「要剔除的节点」，可提供多个选择器，详情请看下文     |
 | hideSibling | 选择器 | 选填 | 用于选择「要剔除的节点」，可提供多个选择器，详情请看下文     |
 | show        | 选择器 | 选填 | 用于显示隐藏的「块状节点」，可提供多个选择器，详情请看下文   |
 | chAttr      | 元组   | 选填 | 用于修改节点的属性值，提供了多种修改属性的方式，详情请看下文 |
+| form        | 对象   | 选填 | 用于预设置表单的输入值，详情见下文 |
+| config      | 对象   | 选填 | 用于重写某些配置项，详情见下文 |
 | tags        | 元祖   | 选填 | 用于标注网站属性，使这些 plan 更好管理                       |
 
 
 ### Pattern 参数的使用
 
-Pattern 参数描述了该 Plan 会应用到哪一类网址上。
+Pattern 参数描述了该 Plan 会应用到哪一类网址上，如果网站有多个域名且很难用匹配符进行匹配，则可以提供多个 Pattern，例如：`["https://a.com/article/*", "https://abcdefg.onion/article/*"]`。
 
 目前支持的匹配符有数字匹配符 "`$d`" 和 星匹配符 "`*`" 和 "`**`"。
 
@@ -395,6 +398,42 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 ```
 
 上面的例子会把 “type” 属性的值设置为 “image/svg”。
+
+### form 参数的使用
+
+用于预设置表单的输入值，MaoXian 会在显示表单的时候，自动帮你输入这些预设的值。四项都为选填，详情如下：
+
+| 名字     | 类型     | 说明     | 默认值   |
+| -------- | -------- | -------- | -------- |
+| format   | 字符串   | 存储格式，只能为 `html` 或 `md` | 取决于你的设置（见扩展设置页面） |
+| title    | 选择器   | 用于选中包含标题的元素 | 无 |
+| category | 字符串   | 对应表单的目录（多级目录用 `/` 隔开） | 取决于你的设置（见扩展设置页面） |
+| tagstr   | 字符串   | 对应表单的标签（多个标签用 `,` 或 `空格` 隔开)  | 无  |
+
+
+注意 title 的类型为选择器。MaoXian 默认会使用网页的标题作为表单的标题输入值，但是有些网页的标题和其内容的标题并不一样，所以提供该项来选择合适的标题。
+
+### config 参数的使用
+
+重写某些配置项，并且重写的结果只在本次裁剪有效。
+
+当前允许重写的配置项如下。注： 其中的默认值指的是 MaoXian 扩展提供的默认值，该值只作为参考，实际上使用的是你自己配置页面上的值。
+
+| 名字               | 说明                     | 类型     | 默认值                     | 备注 |
+| --------           | --------                 | -------- | --------                   | -------- |
+| rootFolder         | 根目录                   | String   | mx-wc                      | - |
+| defaultCategory    | 默认分类                 | String   | default                    | - |
+| clippingFolderName | 裁剪目录                 | String   | $YYYY-$MM-$DD-$TIME-INTSEC | - |
+| mainFileFolder     | 主文件的存储目录         | String   | $CLIPPING-PATH             | - |
+| mainFileName       | 主文件的文件名           | String   | index.$FORMAT              | - |
+| saveInfoFile       | 是否保存元信息文件       | Boolean  | true                       | 设置为`false` 后，MaoXian 便不会保存裁剪历史 |
+| infoFileFolder     | 元信息文件的存储目录     | String   | $CLIPPING-PATH             | - |
+| infoFileName       | 元信息文件的文件名       | String   | index.json                 | - |
+| saveTitleFile      | 是否保存标题文件         | Boolean  | true                       | - |
+| titleFileFolder    | 标题文件的存储目录       | String   | $CLIPPINT-PATH             | - |
+| titleFileName      | 标题文件的文件名         | String   | a-title_$TITLE             | - |
+| frameFileFolder    | 内嵌的网页文件的存储目录 | String   | $CLIPPING-PATH/frames      | - |
+| assetFolder        | 资源文件的存储目录       | String   | $CLIPPING-PATH/assets      | - |
 
 
 ### tags 参数的使用
