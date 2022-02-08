@@ -4,6 +4,20 @@
   "description": "Zhong Hua",
   "plans": [
     {
+      "name" : "Bilibili 专栏",
+      "pattern" : "https://www.bilibili.com/read/*",
+      "pick" : "#read-article-holder",
+      "chAttr": [
+        {
+          "type": "assign.from.self-attr",
+          "pick": "img",
+          "attr": "src",
+          "tAttr": "data-src"
+        }
+      ],
+      "contributors" : ["yzqzss"]
+    },
+    {
       "name" : "新浪微博",
       "pattern" : "https://weibo.com/$d/*",
       "contributors": ["Mika"],
