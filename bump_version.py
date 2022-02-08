@@ -1,6 +1,6 @@
 import time
 
-with open('plans/zh/plans.json') as f:
+with open('plans/zh/plans.json', 'w+') as f:
     lines = f.read().splitlines()
     for line in lines:
         if line.find('\"version\":') != -1:
@@ -8,7 +8,7 @@ with open('plans/zh/plans.json') as f:
         else:
             f.write(line+'\n')
 
-with open('plans/test/plans.json') as f:
+with open('plans/test/plans.json', 'w+') as f:
     lines = f.read().splitlines()
     for line in lines:
         if line.find('\"version\":') != -1:
@@ -16,7 +16,7 @@ with open('plans/test/plans.json') as f:
         else:
             f.write(line+'\n')
 
-with open('plans/default/plans.json') as f:
+with open('plans/default/plans.json', 'w+') as f:
     lines = f.read().splitlines()
     for line in lines:
         if line.find('\"version\":') != -1:
