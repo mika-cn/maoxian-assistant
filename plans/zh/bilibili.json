@@ -1,0 +1,17 @@
+[
+  {
+    "name" : "Bilibili 专栏",
+    "pattern" : "https://www.bilibili.com/read/*",
+    "version": 20220208,
+    "pick" : "#read-article-holder",
+    "chAttr": [
+      {
+        "type": "assign.from.self-attr",
+        "pick": "img",
+        "attr": "src",
+        "tAttr": "data-src"
+      }
+    ],
+    "contributors" : ["yzqzss"]
+  }
+]

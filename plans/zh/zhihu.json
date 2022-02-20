@@ -1,0 +1,187 @@
+[
+  {
+    "name": "知乎专栏",
+    "pattern": "https://zhuanlan.zhihu.com/p/**",
+    "version": 20220207,
+    "hide": [
+      "figure > noscript",
+      ".GifPlayer-icon",
+      ".GifPlayer > .GifPlayer-gif2mp4",
+      ".PostIndex-Contributions",
+      ".Recommendations-Main",
+      ".CommentsV2-footer-wrapper",
+      ".CommentTopbar .Topbar-options",
+      ".ColumnPageHeader-Wrapper"
+    ],
+    "rmAttr": [
+      {
+        "pick": ".ContentItem-actions",
+        "attr": "style"
+      }
+    ],
+    "chAttr": [
+      {
+        "type": "split2list.remove",
+        "pick": ".RichContent-actions",
+        "attr": "class",
+        "value": ["Sticky", "is-fixed", "is-bottom"]
+      },
+      {
+        "type": "assign.from.self-attr",
+        "pick": "figure > img",
+        "attr": "src",
+        "tAttr": "data-actualsrc"
+      },
+      {
+        "type": "replace.last-match",
+        "pick": ".GifPlayer > img",
+        "attr": "src",
+        "subStr": ".jpg",
+        "newStr": ".gif"
+      }
+    ],
+    "tags": [
+      "knowledge",
+      "share"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  },
+  {
+    "name": "知乎回答",
+    "pattern": "https://www.zhihu.com/question/*/answer/*",
+    "version": 20220207,
+    "command": [
+      {
+        "name": "click",
+        "pick": ".Button.QuestionRichText-more"
+      }
+    ],
+    "hide": [
+      ".QuestionHeader-footer-main",
+      ".Card.ViewAll",
+      ".Question-mainColumnLogin",
+      ".Topbar-options",
+      ".List-header",
+      ".ContentItem-expandButton",
+      ".ContentItem-action.ContentItem-rightButton",
+      ".GifPlayer-icon",
+      ".GifPlayer > .GifPlayer-gif2mp4",
+      ".CommentsV2-footer-wrapper"
+    ],
+    "rmAttr": [
+      {
+        "pick": ".ContentItem-actions",
+        "attr": "style"
+      }
+    ],
+    "chAttr": [
+      {
+        "type": "split2list.remove",
+        "pick": ".ContentItem .RichContent",
+        "attr": "class",
+        "value": ["is-collapsed"]
+      },
+      {
+        "type": "split2list.remove",
+        "pick": ".ContentItem-actions",
+        "attr": "class",
+        "value": ["Sticky", "is-fixed", "is-bottom"]
+      },
+      {
+        "type": "assign.from.self-attr",
+        "pick": "figure > img",
+        "attr": "src",
+        "tAttr": "data-actualsrc"
+      },
+      {
+        "type": "replace.last-match",
+        "pick": ".GifPlayer > img",
+        "attr": "src",
+        "subStr": ".jpg",
+        "newStr": ".gif"
+      }
+    ],
+    "tags": [
+      "QA",
+      "answer",
+      "share",
+      "discuss"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  },
+  {
+    "name": "知乎问题",
+    "pattern": "https://www.zhihu.com/question/*",
+    "version": 20220207,
+    "command": [
+      {
+        "name": "click",
+        "pick": ".Button.QuestionRichText-more"
+      }
+    ],
+    "hide": [
+      ".QuestionHeader-footer-main",
+      ".AnswersNavWrapper .List-header",
+      ".ContentItem-expandButton",
+      ".ContentItem-action.ContentItem-rightButton",
+      ".GifPlayer-icon",
+      ".GifPlayer > .GifPlayer-gif2mp4",
+      ".CommentsV2-footer-wrapper",
+      ".Question-sideColumn"
+    ],
+    "rmAttr": [
+      {
+        "pick": ".ContentItem-actions",
+        "attr": "style"
+      }
+    ],
+    "chAttr": [
+      {
+        "type": "split2list.remove",
+        "pick": ".ContentItem .RichContent",
+        "attr": "class",
+        "value": ["is-collapsed"]
+      },
+      {
+        "type": "split2list.remove",
+        "pick": ".ContentItem-actions",
+        "attr": "class",
+        "value": ["Sticky", "is-fixed", "is-bottom"],
+        "sep": " "
+      },
+      {
+        "type": "assign.from.self-attr",
+        "pick": "figure > img",
+        "attr": "src",
+        "tAttr": "data-actualsrc"
+      },
+      {
+        "type": "replace.last-match",
+        "pick": ".GifPlayer > img",
+        "attr": "src",
+        "subStr": ".jpg",
+        "newStr": ".gif"
+      }
+    ],
+    "tags": [
+      "QA",
+      "question",
+      "share",
+      "discuss"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  },
+  {
+    "name": "zhihu video",
+    "pattern": "https://video.zhihu.com/video/*",
+    "version": 20220207,
+    "hideSibling": "X||//video/.."
+  }
+]
+

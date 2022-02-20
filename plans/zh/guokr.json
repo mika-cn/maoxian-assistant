@@ -1,0 +1,15 @@
+[
+  {
+    "name": "果壳",
+    "pattern": "http*://www.guokr.com/article/",
+    "version": 20220207,
+    "pick": "div[class*=ArticleContent]",
+    "tags": [
+      "science",
+      "nature"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]

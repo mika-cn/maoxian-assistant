@@ -1,0 +1,20 @@
+[
+  {
+    "name": "博客园",
+    "pattern": "https://www.cnblogs.com/**/*/*.html",
+    "version": 20220207,
+    "pick": "div#cnblogs_post_body",
+    "hide": [
+      "div.cnblogs_code_toolbar",
+      "div.cnblogs_code_copy"
+    ],
+    "tags": [
+      "IT",
+      "blog"
+    ],
+    "contributors": [
+      "CodingOX"
+    ]
+  }
+]
+

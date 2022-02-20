@@ -1,0 +1,23 @@
+[
+  {
+    "name": "简书",
+    "pattern": "https://www.jianshu.com/p/*",
+    "version": 20220207,
+    "pick": "article",
+    "chAttr": [
+      {
+        "type": "assign.from.self-attr",
+        "pick": ".image-view img[data-original-src]",
+        "attr": "src",
+        "tAttr": "data-original-src"
+      }
+    ],
+    "tags": [
+      "writing"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]
+

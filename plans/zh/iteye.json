@@ -1,0 +1,19 @@
+[
+  {
+    "name": "iteye",
+    "pattern": "http*://*.iteye.com/blog/*",
+    "version": 20220207,
+    "pick": "#blog_content",
+    "hide": [
+      "#bottoms",
+      ".blog_bottom",
+      ".blog_nav",
+      ".blog_comment"
+    ],
+    "tags": [
+      "IT",
+      "blog"
+    ]
+  }
+]
+

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "ruby-china.org",
+    "pattern": "https://ruby-china.org/topics/*",
+    "version": 20220207,
+    "pick": ".topic-detail",
+    "tags": [
+      "IT",
+      "community",
+      "ruby"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]
+

@@ -1,0 +1,39 @@
+[
+  {
+    "name": "新浪微博",
+    "pattern": "https://weibo.com/$d/*",
+    "version": 20220207,
+    "hideSibling": [
+      "video.wbpv-tech"
+    ],
+    "chAttr": [
+      {
+        "type": "assign.from.value",
+        "pick": ".vue-recycle-scroller__item-wrapper",
+        "attr": "data-mx-sort-by-index",
+        "value": "1"
+      },
+      {
+        "type": "assign.from.value",
+        "pick": ".vue-recycle-scroller__item-view",
+        "attr": "data-mx-locked-style-position",
+        "value": "static !important"
+      },
+      {
+        "type": "assign.from.value",
+        "pick": ".vue-recycle-scroller__item-view",
+        "attr": "data-mx-locked-style-transform",
+        "value": "translateY(0px)"
+      },
+      {
+        "type": "assign.from.first-child-attr",
+        "pick": ".vue-recycle-scroller__item-view",
+        "attr": "data-mx-index",
+        "tAttr": "data-index"
+      }
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]

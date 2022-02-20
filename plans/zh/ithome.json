@@ -1,0 +1,25 @@
+[
+  {
+    "name": "IT之家",
+    "pattern": "https://www.ithome.com/**/*/*.htm",
+    "version": 20220207,
+    "pick": ".post_content",
+    "chAttr": [
+      {
+        "type": "assign.from.self-attr",
+        "pick": "img.lazy",
+        "attr": "src",
+        "tAttr": "data-original"
+      }
+    ],
+    "tags": [
+      "IT",
+      "news"
+    ],
+    "contributors": [
+      "yzqzss (author)",
+      "Mika"
+    ]
+  }
+]
+

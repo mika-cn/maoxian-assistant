@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Solidot",
+    "pattern": "https://www.solidot.org/story",
+    "version": 20220207,
+    "pick": "div.p_mainnew",
+    "tags": [
+      "IT",
+      "news",
+      "geek"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]
+

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "v2ex",
+    "pattern": "https://www.v2ex.com/t/",
+    "version": 20220207,
+    "pick": "div.topic_content",
+    "tags": [
+      "IT",
+      "forum",
+      "share",
+      "creation"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]

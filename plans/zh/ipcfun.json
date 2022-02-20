@@ -1,0 +1,12 @@
+[
+  {
+    "name": "iPcfun",
+    "pattern": "https://www.ipcfun.com/*.html",
+    "version": 20220207,
+    "pick": ".post",
+    "hide": [
+      ".post_detail > .entry-relate-links",
+      "#sidebar"
+    ]
+  }
+]

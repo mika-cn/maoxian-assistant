@@ -1,0 +1,22 @@
+[
+  {
+    "name": "掘金",
+    "pattern": [
+      "https://juejin.cn/post/*",
+      "https://juejin.im/post/*"
+    ],
+    "version": 20220207,
+    "pick": "div.article-content",
+    "hide": [
+      "span.copy-code-btn"
+    ],
+    "tags": [
+      "IT",
+      "community",
+      "frontend"
+    ],
+    "contributors": [
+      "CodingOX"
+    ]
+  }
+]

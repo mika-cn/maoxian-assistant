@@ -1,0 +1,16 @@
+[
+  {
+    "name": "酷壳",
+    "pattern": "https://coolshell.cn/articles/*",
+    "version": 20220207,
+    "pick": ".post-content",
+    "tags": [
+      "IT",
+      "blog"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]
+

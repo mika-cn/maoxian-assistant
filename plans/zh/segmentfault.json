@@ -1,0 +1,16 @@
+[
+  {
+    "name": "segmentfault.com",
+    "pattern": "https://segmentfault.com/a/",
+    "version": 20220207,
+    "pick": "article.article-content",
+    "tags": [
+      "IT",
+      "geek"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]
+
