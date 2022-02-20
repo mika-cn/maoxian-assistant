@@ -2,6 +2,7 @@
   {
     "name": "少数派",
     "pattern": "https://sspai.com/post/*",
+    "version": 20220207,
     "pick": ".article-body > .articleWidth-content > .content",
     "hide": [
       ".bgGrey",

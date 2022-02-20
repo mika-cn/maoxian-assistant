@@ -79,6 +79,7 @@ https://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
 | -------- | -------- | -------- | -------- |
 | name        | 字符串 | 必填 | 起标识作用，可随便填写，一般可以直接填写网站名         |
 | pattern     | 字符串 | 必填 | 匹配的模式，只有网址和模式匹配，该 plan 才会被应用           |
+| version     | 整型 | 必填 | 用于描述最后更新时间，格式为年月日，如：20190721 |
 | contributors | 元组  | 选填 | 用于描述 plan 的作者和贡献者 |
 | disabled    | 波尔值 | 选填 | 用于表示 plan 的禁用状态 |
 | pick        | 选择器 | 选填 | 用于选择「要裁剪的节点」，可提供多个选择器，详情请看下文     |
@@ -170,21 +171,12 @@ disabled 参数用于表明该 plan 是否已禁用了。常用于「全局 plan
 其中 `$type||` 部分可省略，省略后的部分表示的是 CSS 选择器，大部分情况下我们都会用 CSS 选择器，除非一些很难用 CSS 选择器表示的，才会使用到 xPath 选择器。
 
 
-
-**选择器的查找范围**
-
-不同参数的选择器的查找范围不一样，如下：
-
-* **pick 参数** 选择器的查找范围为**整个网页**。
-
-* **hide 参数、hideSibling参数、show 参数和 chAttr 参数** 的选择器的查找范围比较特殊。当 Plan **含有 pick 参数时**，他们的选择器的查找范围是 **pick 参数选中的那个节点（即要裁剪的节点）的内部**；当 Plan **不含有 pick 参数时**，他们的选择器的查找范围是**整个网页**
-
-
 下面我们来看一个例子（注： 本页面给出的例子都是 JSON 格式）
 
 ```json
 {
   "name": "example.org",
+  "version": 20190831,
   "pattern": "https://www.example.org/article/*",
   "pick": "article",
   "hide": [
@@ -195,8 +187,8 @@ disabled 参数用于表明该 plan 是否已禁用了。常用于「全局 plan
 }
 ```
 
-* pick 填入的是一个选择器，此选择器是 CSS 选择器。其完整形式为 `C||article`，我们给出的是省略了 `C||` 后的部分。其查找范围为整个网页。
-* hide 填入的是多个选择器，即给出的是一个 选择器的元组（数组）。最后一个选择器是 xPath 选择器，`X||` 部分不能省略。由于此 Plan 含有 pick 参数，选择器的查找范围为 `article` 选中的那个节点的内部。
+* pick 填入的是一个选择器，此选择器是 CSS 选择器。其完整形式为 `C||article`，我们给出的是省略了 `C||` 后的部分。
+* hide 填入的是多个选择器，即给出的是一个 选择器的元组（数组）。最后一个选择器是 xPath 选择器，`X||` 部分不能省略。
 
 ### pick 参数的使用
 
@@ -222,10 +214,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ```json
 {
-  "name": "example.org",
-  "pattern": "https://www.example.org/post/*",
-  "pick": "article",
-  "hide": "div.comment",
+  ...
   "chAttr": [
     {
       "type": "replace.last-match",
@@ -234,8 +223,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "subStr": "small",
       "newStr": "big"
     }
-  ],
-  "tags": ["IT", "blog"]
+  ]
 }
 ```
 
@@ -247,9 +235,6 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 * subStr 的值为**要替换掉的那部分**，我们填入的是 small。
 * newStr 的值是替换项，也就是说我们用 newStr 的值 big，替换 subStr 的值 small。
 
-**注意: $action 的 pick 参数的查找范围为「要裁剪节点的内部」**，因为 Plan 含有 pick 属性，在此例子中，查找范围是第一个 article 节点的内部。
-
-
 
 还有一种和这个类似的 $action，它的 type 为 **replace.all** ，作用是替换所有找到的匹配，较少使用。 **replace.last-match** 和 **replace.all** 这两种类型也支持有多个替换项（即：`subStr` 和 `newStr` 都可以是数组）。替换规则为：如果 `newStr` 有和 `subStr` 对应的项，则使用对应的项，否则使用 `newStr` 的第一项。
 
@@ -258,7 +243,6 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 
 例如： subStr 为 `["xm", "xxm"]`，newStr 为 `["xxl"]` ，其中 xxm 没有对应的替换值，则会使用第一项。即 xxm 也会由 xxl 替换。
-
 
 
 ------------------------------
@@ -275,13 +259,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ```json
 {
-  "name": "example.org",
-  "pattern": "https://www.example.org/post/*",
-  "pick": "div.post-content",
-  "hide": [
-    "div.comment",
-    "div.status-bar",
-  ],
+  ...
   "chAttr": [
     {
       "type": "assign.from.self-attr",
@@ -289,8 +267,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "attr": "src",
       "tAttr": "hq-src"
     }
-  ],
-  "tags": ["IT", "blog"]
+  ]
 }
 ```
 * type 为 **assign.from.self-attr** ，它表明我们要用**找到节点的另一个属性的值**，来重写 attr 指定的属性。
@@ -314,13 +291,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ```json
 {
-  "name": "example.org",
-  "pattern": "https://www.example.org/post/*",
-  "pick": "div.post",
-  "hide": [
-    "div.comment",
-    "div.status-bar"
-  ],
+  ...
   "chAttr": [
     {
       "type": "assign.from.parent-attr",
@@ -328,8 +299,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "attr": "src",
       "tAttr": "href"
     }
-  ],
-  "tags": ["IT", "blog"]
+  ]
 }
 ```
 
@@ -346,10 +316,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ```json
 {
-  "name": "example.org",
-  "pattern": "https://www.example.org/post/*",
-  "pick": "article",
-  "hide": "div.comment",
+  ...
   "chAttr": [
     {
       "type": "split2list.remove",
@@ -358,15 +325,14 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "value": "folded",
       "sep": " "
     }
-  ],
-  "tags": ["IT", "blog"]
+  ]
 }
 ```
 
 * type 为 **split2list.remove** ，它表明我们要用操作的属性具有的值比较特殊，可以通过某个分隔符分成多个部分，该类型表明要移除其中一部分。
 * pick 的类型为选择器，用来选中要操作的节点，我们选中了所有包含类名为 section 的标签。
 * attr 的值为要操作的属性名字，此例中，我们选择的是 class 属性。
-* value 为要移除的那部分。
+* value 为要移除的那部分，可移除多个值（如：`"value": ["a", "b", "c"]`）
 * sep 为分隔符
 
 还有一种 $action, 跟该例子类似，它的类型为 **split2list.add**，该类型表明要往属性里面添加一项。
@@ -382,9 +348,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ```json
 {
-  "name": "example.org",
-  "pattern": "https://www.example.org/post/*",
-  "pick": "article",
+  ...
   "chAttr": [
     {
       "type": "assign.from.value",
@@ -392,12 +356,12 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "attr": "type",
       "value": "image/svg",
     }
-  ],
-  "tags": ["wiki"]
+  ]
 }
 ```
 
 上面的例子会把 “type” 属性的值设置为 “image/svg”。
+
 
 ### form 参数的使用
 
@@ -442,21 +406,16 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ## 贡献 Plan
 
-所有的 plan 都存储在 `plans` 目录下，比如 `plans/default/plans.json` 里面存储的是默认的 plan 信息，而 `plans/zh/plans.json` 存储的是中文网站相关的 plan 信息。最终所有的 `plans.json` 会在 `build.rb` 这个脚本的渲染下，变成可订阅的形式。
+所有的 plan 都存储在 `plans` 的子目录下，不同的子目录代表不同频道，每个频道最终都将生成一个订阅地址。请将你写的 plan 以数组的形式单独存为一个文件，如： `plans/zh/zhihu.json`。每个网站建一个文件。
 
+最终所有的 `plans.json` 会在 `build.rb` 这个脚本的渲染下，变成可订阅的形式。
 
 你可以通过下方几种方式把 plan 分享出来：
 
-* 通过 Github 建 Pull Request 的形式。（把你编写的 plan 复制到对应的 plans.json 文件即可）
+* 通过 Github 建 Pull Request 的形式。
 * 通过 Github 建 issue。（把 plan 贴上即可）
 * 通过发邮件给开发者（i.mika[AT]tutanota.com），直接发送内容或者发送 patch。
 
-### plans.json 的字段解释
-
-* name 为我们取的一个名字，只能使用字母和中划线 `-` 和 下划线 `_`
-* version 为版本信息，我们使用年月日作为版本，在每次发布之前才需要修改它
-* description 为描述信息
-* plans 为我们维护的 plan 集合，是一个元祖（数组），上一节，提到的复制，即复制到 plans 下面即可。
 
 ## 最后
 

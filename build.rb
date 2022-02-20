@@ -12,26 +12,29 @@ require_relative 'lib/mx-plan'
 
 module Check
 
-  # check plan in file and return invalid plan count
+  # validate plan.json, return invalid count
   def self.perform(filename)
     count = 0
     begin
-      puts "\n\nStart to check #{filename}"
-      json = JSON.parse(File.open(filename, 'r').read)
-      json['plans'].each do |it|
-        plan = MxPlan.new(it)
-        unless plan.valid?
-          count += 1
-          puts "Invalid plan: "
-          puts JSON.pretty_generate(it)
-          puts "Details: "
-          puts plan.errors
+      json = JSON.parse(File.open(filename, 'r').read);
+      if json.is_a? Array
+        json.each do |it|
+          plan = MxPlan.new(it)
+          unless plan.valid?
+            puts "Invalid plan: "
+            puts JSON.pretty_generate(it)
+            puts "Details: "
+            puts plan.errors
+            count += 1
+          end
         end
+      else
+        puts "[E] #{filename} is not an array"
       end
+      return count
     rescue JSON::ParserError => e
       throw e
     end
-    return count
   end
 
 end
@@ -39,46 +42,70 @@ end
 module Build
 
   def self.perform(output_dir, deploy_path)
-    Dir.glob("plans/*/plans.json") do |filename|
-      invalid_plan_count = Check.perform(filename)
+    channels = [];
+    Dir.glob("plans/channel_*.json") do |filename|
+      channel = JSON.parse(File.open(filename, 'r').read)
+      channels.push channel
+    end
+
+    channels.each do |channel|
+      invalid_plan_count = 0
+      Dir.glob("plans/#{channel['folder']}/*.json") do |filename|
+        invalid_plan_count += Check.perform(filename)
+      end
+
       if invalid_plan_count == 0
-        puts "File #{filename} OK"
-        renderIndexAndPlans(output_dir, deploy_path, filename)
+        puts "Channel #{channel['name']} OK"
+        renderIndexAndPlans(output_dir, deploy_path, channel)
       else
-        puts "File #{filename} is not going to build, because there are #{invalid_plan_count} invalid plan"
+        puts "Channel #{channel['name']} was not build, there're #{invalid_plan_count} invalid plans"
       end
     end
     puts "\nComplete!\n"
   end
 
-  def self.renderIndexAndPlans(output_dir, deploy_path, filename)
-    json = JSON.parse(File.open(filename, 'r').read)
-    folder = filename.gsub('/plans.json', '')
+  def self.renderIndexAndPlans(output_dir, deploy_path, channel)
+    plans = []
+    version = 0;
+    Dir.glob("plans/#{channel['folder']}/*.json") do |filename|
+      json = JSON.parse(File.open(filename, 'r').read)
+      json.each  do |it|
+        if it['version'] > version
+          version = it['version']
+        end
+        plans << MxPlan.new(it)
+      end
+    end
+
+    if version == 0
+      puts "Not plan to render"
+    end
+
+    folder = "plans/#{channel['folder']}"
 
     url = File.join(deploy_path, folder, 'index.json')
     indexFilename = File.join(output_dir, folder, 'index.json')
 
-    update_url = File.join(deploy_path, folder, "#{json['version']}.json")
-    plansFilename = File.join(output_dir, folder, "#{json['version']}.json")
+    update_url = File.join(deploy_path, folder, "#{version}.json")
+    plansFilename = File.join(output_dir, folder, "#{version}.json")
 
     index = {
-      name: json['name'],
-      description: json['description'],
-      size: json['plans'].size,
-      latestVersion: json['version'],
+      name: channel['name'],
+      description: channel['description'],
+      size: plans.size,
+      latestVersion: version,
       url: url,
       updateUrl: update_url
     }
 
     mkdir(indexFilename)
-    plans = json['plans'].map{|it| MxPlan.new(it)}
     File.open(indexFilename, 'w') {|f| f.write JSON.pretty_generate(index)}
     File.open(plansFilename, 'w') {|f| f.write JSON.pretty_generate(plans.map(&:to_hash))}
 
-    puts ""
     puts indexFilename
     puts plansFilename
-    puts "[Done] #{filename}"
+    puts "[Done] channel: #{channel['name']}"
+    puts ""
   end
 
   def self.mkdir(filename)
