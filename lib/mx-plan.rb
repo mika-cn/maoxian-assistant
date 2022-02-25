@@ -6,6 +6,7 @@ class MxPlan
 
   required_attr :name
   required_attr :pattern
+  optional_attr :excludePattern
   required_attr :version
   optional_attr :pick
   optional_attr :disabled

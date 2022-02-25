@@ -2,7 +2,8 @@
   {
     "name": "wikipedia.org",
     "pattern": "https://*.wikipedia.org/wiki/*",
-    "version": 20220206,
+    "excludePattern": "https://*.m.wikipedia.org/*/",
+    "version": 20220225,
     "pick": "div.mw-parser-output",
     "hide": [
       "div#toc",

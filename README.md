@@ -79,6 +79,7 @@ https://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
 | -------- | -------- | -------- | -------- |
 | name        | 字符串 | 必填 | 起标识作用，可随便填写，一般可以直接填写网站名         |
 | pattern     | 字符串 | 必填 | 匹配的模式，只有网址和模式匹配，该 plan 才会被应用           |
+| excludePattern | 字符串 | 选填 | 用于充当 pattern 的黑名单 |
 | version     | 整型 | 必填 | 用于描述最后更新时间，格式为年月日，如：20190721 |
 | contributors | 元组  | 选填 | 用于描述 plan 的作者和贡献者 |
 | disabled    | 波尔值 | 选填 | 用于表示 plan 的禁用状态 |
