@@ -89,7 +89,8 @@ https://mika-cn.github.io/maoxian-web-clipper/assistant/plans/zh/index.json
 | chAttr      | 元组   | 选填 | 用于修改节点的属性值，提供了多种修改属性的方式，详情请看下文 |
 | form        | 对象   | 选填 | 用于预设置表单的输入值，详情见下文 |
 | config      | 对象   | 选填 | 用于重写某些配置项，详情见下文 |
-| tags        | 元祖   | 选填 | 用于标注网站属性，使这些 plan 更好管理                       |
+| tags        | 元祖   | 选填 | 用于标注网站属性，使这些 plan 更好管理 |
+| comment     | 字符串 | 选填 | 备注 |
 
 
 ### Pattern 参数的使用
@@ -133,7 +134,7 @@ Pattern 参数描述了该 Plan 会应用到哪一类网址上，如果网站有
 
 可以用 `https://example.org/blog/**/*/*/*/*/*.html`这个 Pattern 来匹配。 中间用了四个 "*" 号来匹配分类和年月日，前面的 "**" 匹配可能存在的子分类。也可以用 `https://example.org/blog/**/*/$d/$d/$d/*.html` 来进行匹配。
 
-上面这个例子也可以使用 `https://example.org/blog` 作为 Pattern ，来直接匹配以该模式打头的网址，不同的 Pattern，严格程度不同，根据需求给出 Pattern 即可。
+上面这个例子也可以使用 `https://example.org/blog/` （注意：最后面的 "/"） 作为 Pattern ，来直接匹配以该模式打头的网址，不同的 Pattern，严格程度不同，根据需求给出 Pattern 即可。
 
 
 **匹配网址的查询参数部分（较少使用）**
@@ -210,7 +211,9 @@ show 参数是用于显示「隐藏的块状节点」的，属性的值也是选
 
 chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可选项，只有在需要的时候，才需要提供。 chAttr 的值为一个 $action 的元组，$action 是一个 Object。$action 的常用参数有三个 `type`, `pick` 和 `attr`。不同的 `type` 会跟不同的的参数。下面我们用一些常见的例子来说明 chAttr 的用法。
 
-**例1**： 假设有一个网页，显示的是低质量的图，这些图的 `src` 属性是一个有规律的地址，比如： https://www.example.org/images/awesome-pic-small.jpg  ，而某些操作后，可能就变为 https://www.example.org/images/awesome-pic-big.jpg 。我们希望裁剪的是后者，而非前者，可以用下面这个 Plan 来实现：
+------------------------------
+
+**例1.1**： 假设有一个网页，显示的是低质量的图，这些图的 `src` 属性是一个有规律的地址，比如： https://www.example.org/images/awesome-pic-small.jpg  ，而某些操作后，可能就变为 https://www.example.org/images/awesome-pic-big.jpg 。我们希望裁剪的是后者，而非前者，可以用下面这个 Plan 来实现：
 
 ```json
 {
@@ -236,7 +239,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 * newStr 的值是替换项，也就是说我们用 newStr 的值 big，替换 subStr 的值 small。
 
 
-还有一种和这个类似的 $action，它的 type 为 **replace.all** ，作用是替换所有找到的匹配，较少使用。 **replace.last-match** 和 **replace.all** 这两种类型也支持有多个替换项（即：`subStr` 和 `newStr` 都可以是数组）。替换规则为：如果 `newStr` 有和 `subStr` 对应的项，则使用对应的项，否则使用 `newStr` 的第一项。
+还有一种和这个类似的 $action，它的 type 为 **replace.all** ，作用是替换所有找到的匹配，较少使用。 **replace.all** 也支持有多个替换项（即：`subStr` 和 `newStr` 都可以是数组）。替换规则为：如果 `newStr` 有和 `subStr` 对应的项，则使用对应的项，否则使用 `newStr` 的第一项。
 
 
 例如： subStr 为 `["xm", "xxm"]`，newStr 为 `["xl", "xxl"]` 两个值一一对应，则会使用对应项。即 xm 会由 xl 替换， xxm 会由 xxl 替换。
@@ -244,6 +247,131 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 例如： subStr 为 `["xm", "xxm"]`，newStr 为 `["xxl"]` ，其中 xxm 没有对应的替换值，则会使用第一项。即 xxm 也会由 xxl 替换。
 
+
+**专门用于修改 URL 的 $action**
+
+比如上方的例1.1，也可以用下方的 Plan 来实现：
+
+```json
+{
+  ...
+  "chAttr": [
+    {
+      "type": "url.file.set-name-suffix",
+      "pick": "img",
+      "attr": "src",
+      "sep": '-',
+      "suffix": "big",
+      "whiteList": ["small", "big"]
+    }
+  ]
+}
+```
+
+这个 $action 会对 src 属性指定的 url 的文件名部分，设置后缀（在扩展名前面）。其中：
+
+* sep 必填，表示分隔符，包含分隔符的文件名，会进行替换，不包含时进行添加。
+* suffix 必填，要设置的后缀。
+* whiteList 选填（但强烈建议填写），为后缀的可选值，该项表示：当文件名有这些后缀时，替换为 suffix 参数提供的值。若不填，则不判断直接替换。
+
+
+
+如果要移除文件名后缀，则使用下方 Plan ：
+
+```json
+{
+  ...
+  "chAttr": [
+    {
+      "type": "url.file.rm-name-suffix",
+      "pick": "img",
+      "attr": "src",
+      "sep": '-',
+      "whiteList": ["small", "md"]
+    }
+  ]
+}
+```
+
+参数比前一个 Plan 少了 suffix。其中：
+
+* sep 必填，表示分隔符，包含分隔符的文件名，才删除后缀，不包含时，不删除后缀。
+* whiteList 选填（但强烈建议填写），为后缀的可选值，该项表示：当文件名有这些后缀时，删除这些后缀。若不填，则不判断直接删除后缀。
+
+
+**例1.2**：有些网站会在文件的扩展名后面加上后缀来区分不同的文件质量。如：
+
+
+```html
+<img src="assets/name.jpg!sm">
+```
+
+
+则可使用下方 Plan 进行设置：
+
+```json
+{
+  ...
+  "chAttr": [
+    {
+      "type": "url.file.set-ext-suffix",
+      "pick": "img",
+      "attr": "src",
+      "sep": '!',
+      "suffix": "lg"
+    }
+  ]
+}
+```
+
+若要移除，则使用：
+
+```json
+{
+  ...
+  "chAttr": [
+    {
+      "type": "url.file.rm-ext-suffix",
+      "pick": "img",
+      "attr": "src",
+      "sep": '!'
+    }
+  ]
+}
+```
+
+注意： MaoXian 助手对于扩展名后缀的操作很粗暴。须确保 url 文件名中含有的分隔符确实为扩展名和后缀的分隔符，不然会出问题。
+
+
+**例1.3**：有些网站还会把版本信息放在 url 的查询参数中，如：
+
+```html
+<img src="http://a.org/name.jpg?size=sm&from=google">
+```
+
+遇到这种，可使用下方 Plan：
+
+```json
+{
+  ...
+  "chAttr": [
+    {
+      "type": "url.search.edit",
+      "pick": "img",
+      "attr": "src",
+      "change": {"size": "lg"},
+      "delete": ["from"]
+    }
+  ]
+}
+```
+
+其中：
+
+* change 为要设置的参数。
+* delete 为要移除的参数名。
+
+上面这个 plan 应用后， src 属性的值为： "http://a.org/name.jpg?size=lg"
 
 ------------------------------
 
@@ -406,9 +534,9 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 
 ## 贡献 Plan
 
-所有的 plan 都存储在 `plans` 的子目录下，不同的子目录代表不同频道，每个频道最终都将生成一个订阅地址。请将你写的 plan 以数组的形式单独存为一个文件，如： `plans/zh/zhihu.json`。每个网站建一个文件。
+所有的 Plan 都存储在 `plans` 的子目录下，不同的子目录代表不同频道，每个频道最终都将生成一个订阅地址。请将你写的 Plan 以数组的形式单独存为一个文件，如： `plans/zh/zhihu.json`。每个网站建一个文件。
 
-最终所有的 `plans.json` 会在 `build.rb` 这个脚本的渲染下，变成可订阅的形式。
+最终所有的 Plan 会在 `build.rb` 这个脚本的渲染下，变成可订阅的形式。
 
 你可以通过下方几种方式把 plan 分享出来：
 

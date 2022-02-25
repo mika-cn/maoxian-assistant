@@ -16,6 +16,6 @@ class MxPlan
   optional_attr :form
   optional_attr :config
   optional_attr :tags
-  optional_attr :comment, to_hash: false
   optional_attr :contributors
+  optional_attr :comment, to_hash: false
 end

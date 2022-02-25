@@ -14,6 +14,13 @@ class ChAttrAction
   T22 = "assign.from.child-attr"
   T23 = "assign.from.descendent-attr"
 
+  T51 = "url.file.set-ext-suffix"
+  T52 = "url.file.rm-ext-suffix"
+  T53 = "url.file.set-name-suffix"
+  T54 = "url.file.rm-name-suffix"
+  T55 = "url.search.edit"
+
+
   T71 = "replace.last-match"
   T72 = "replace.all"
 
@@ -25,6 +32,7 @@ class ChAttrAction
     T01, T02,
     T11, T12, T13,
     T21, T22, T23,
+    T51, T52, T53, T54, T55,
 
     T71, T72,
     T91, T92,
@@ -33,12 +41,17 @@ class ChAttrAction
   required_attr :type, in: TYPES
   required_attr :pick
   required_attr :attr
-  required_attr :subStr,    if: -> {value_in(:type, T71, T72)}
-  required_attr :newStr,    if: -> {value_in(:type, T71, T72)}
-  required_attr :tElem,     if: -> {value_in(:type, T12, T13, T22, T23)}
-  required_attr :tAttr,     if: -> {value_in(:type, T02, T11, T12, T13, T21, T22, T23)}
-  required_attr :value,     if: -> {value_in(:type, T01, T91, T92)}
-  optional_attr :sep,       if: -> {value_in(:type, T91, T92)}
+  optional_attr :subStr, required_if: -> {value_in(:type, T71, T72)}
+  optional_attr :newStr, required_if: -> {value_in(:type, T71, T72)}
+  optional_attr :tElem,  required_if: -> {value_in(:type, T12, T13, T22, T23)}
+  optional_attr :tAttr,  required_if: -> {value_in(:type, T02, T11, T12, T13, T21, T22, T23)}
+  optional_attr :value,  required_if: -> {value_in(:type, T01, T91, T92)}
+  optional_attr :sep,    required_if: -> {value_in(:type, T51, T52, T53, T54)}
+  optional_attr :suffix, required_if: -> {value_in(:type, T51, T53)}
+  optional_attr :whiteList #T52, T54
+  optional_attr :change   #T55
+  optional_attr :delete   #T55
+
 
 end
 

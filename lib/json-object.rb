@@ -87,7 +87,7 @@ module JsonObject
   end
 
   def validate_attr_define(attr, attr_define)
-    validate_proc = -> {
+    validate_proc = Proc.new { |attr_define|
       attr_value = instance_variable_get(vname(attr))
       if attr_define[:required] && attr_value.nil?
         return [false, "Required attribute: \"#{attr}\" is not provided"]
@@ -107,15 +107,16 @@ module JsonObject
 
       return [true]
     }
-    condition = attr_define[:if]
+
+    condition = attr_define[:required_if]
     if condition.is_a?(Proc)
       if self.instance_exec(&condition)
-        return validate_proc.call
+        return validate_proc.call(attr_define.merge({required: true}))
       else
         return [true]
       end
     else
-      return validate_proc.call
+      return validate_proc.call(attr_define)
     end
   end
 
