@@ -1,0 +1,16 @@
+[
+  {
+    "name": "36kr",
+    "pattern": "https://36kr.com/p/$d",
+    "version": 20220503,
+    "pick": ".articleDetailContent",
+    "tags": [
+      "IT",
+      "news",
+      "tech"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]

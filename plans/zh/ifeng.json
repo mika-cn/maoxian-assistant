@@ -1,0 +1,35 @@
+[
+  {
+    "name": "凤凰网/资讯",
+    "pattern": "https://news.ifeng.com/c/*",
+    "version": 20220503,
+    "pick": [
+      "[class|=main_content]",
+      "[class|=artical]",
+      "[class|=article]"
+    ],
+    "hide": [
+      "[class|=rightContent]",
+      "[class|=infoboxLink] [class|=face]",
+      "[class|=infoboxLink] [class|=follow]",
+      "[class|=artical] [class|=info] > [class|=share_box]",
+      "[class|=article] [class|=info] > [class|=share_box]",
+      "[class|=vote_box] [class|=qr_box]",
+      "[class|=vote_box] [class|=share_box]",
+      "[class|=comment_textarea_head]",
+      "[class|=comment_textarea_body]",
+      "[class|=comment_textarea_bottom]",
+      "[class|=showAllComment]"
+    ],
+    "hideSibling": [
+      "[class|=artical]",
+      "[class|=article]"
+    ],
+    "tags": [
+      "news"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]
