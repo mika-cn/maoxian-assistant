@@ -125,7 +125,7 @@ Pattern 参数描述了该 Plan 会应用到哪一类网址上，如果网站有
 
 * 匹配整个部分，常用于匹配网址路径的一个目录。
 
-比如：使用 `https://example.org/*/index.html`，可以匹配到 https://example.org/blog/index.html。但是无法匹配到 https://example.org/blog/jack/index.html，因为 "*" 号不匹配目录分隔符 "/"。
+比如：使用 `https://example.org/*/index.html`，可以匹配到 https://example.org/blog/index.html 。但是无法匹配到 https://example.org/blog/jack/index.html ，因为 "*" 号不匹配目录分隔符 "/"。
 
 **双星匹配符**
 
@@ -145,7 +145,7 @@ Pattern 参数描述了该 Plan 会应用到哪一类网址上，如果网站有
 一般匹配只是匹配网址的查询参数能满足 Pattern 的参数部分。网址的参数数量可以多，顺序也可以不一致。
 
 
-例如：使用 `https://a.org/page?id=*` 这个 Pattern，可以匹配到 https://a.org/page?id=123，也可以匹配到 https://a.org/page?type=news&id=456。当然了，你也可以进一步匹配参数值，如： `https://a.org/page?type=news` 这个 Pattern 。
+例如：使用 `https://a.org/page?id=*` 这个 Pattern，可以匹配到 https://a.org/page?id=123 ，也可以匹配到 https://a.org/page?type=news&id=456 。当然了，你也可以进一步匹配参数值，如： `https://a.org/page?type=news` 这个 Pattern 。
 
 * 严格匹配
 
@@ -261,7 +261,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "type": "url.file.set-name-suffix",
       "pick": "img",
       "attr": "src",
-      "sep": '-',
+      "sep": "-",
       "suffix": "big",
       "whiteList": ["small", "big"]
     }
@@ -287,7 +287,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "type": "url.file.rm-name-suffix",
       "pick": "img",
       "attr": "src",
-      "sep": '-',
+      "sep": "-",
       "whiteList": ["small", "md"]
     }
   ]
@@ -318,7 +318,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "type": "url.file.set-ext-suffix",
       "pick": "img",
       "attr": "src",
-      "sep": '!',
+      "sep": "!",
       "suffix": "lg"
     }
   ]
@@ -335,7 +335,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
       "type": "url.file.rm-ext-suffix",
       "pick": "img",
       "attr": "src",
-      "sep": '!'
+      "sep": "!"
     }
   ]
 }
@@ -409,7 +409,7 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 ------------------------------
 
 
-**例3**： 假设有一个网页，显示的是低质量的图，并且这些图片本身是一个链接，可以通过点击图片查看原图， 图片的 html 如下：
+**例3.1**： 假设有一个网页，显示的是低质量的图，并且这些图片本身是一个链接，可以通过点击图片查看原图， 图片的 html 如下：
 
 ```html
 <a href="/image/awesome-pic-bdf.jpg" >
@@ -432,10 +432,58 @@ chAttr 参数可以用来改变标签的某个属性的值。chAttr 是一个可
 }
 ```
 
-* type 为 **assign.from.parent-attr** ，它表明我们要用找到节点的**父节点**的一个属性的值，来重写 attr 指定的属性。
+* type 为 **assign.from.parent-attr** ，它表明我们要用找到节点的 **父节点** 的一个属性的值，来重写 attr 指定的属性。
 * pick 的类型为选择器，用来选中要操作的节点，我们选中了所有 img 标签。
 * attr 的值为要操作的属性名字，此例中，我们选择的是图片的 src 属性。
 * tAttr 的值为目标属性（target attribute）的名字， 此例中，我们用父节点的 href 属性重写图片的 src 属性。
+
+
+
+
+**例3.2**: 假如和 例3.1 类似，但是原图的链接不在父节点，而是在祖先节点，HTML 如下：
+
+```html
+<a href="/image/awesome-pic-bdf.jpg" >
+  <div class="wrapper">
+    <img src="/image/pic-abc.jpg" />
+  <div>
+</a>
+```
+
+我们要裁剪的是 a 标签 href 指定的那张图片，使用下面这个 Plan 实现：
+
+```json
+{
+  ...
+  "chAttr": [
+    {
+      "type": "assign.from.ancestor-attr",
+      "pick": "img",
+      "attr": "src",
+      "tElem": ["a"],
+      "tAttr": "href"
+    }
+  ]
+}
+```
+
+* type 为 **assign.from.ancestor-attr** ，它表明我们要用找到节点的 **祖先节点** 的一个属性的值，来重写 attr 指定的属性。
+* pick 的类型为选择器，用来选中要操作的节点，我们选中了所有 img 标签。
+* attr 的值为要操作的属性名字，此例中，我们选择的是图片的 src 属性。
+* tElem 的值为目标元素（target element）的选择器，此例子中，我们选中了 a 标签。
+* tAttr 的值为目标属性（target attribute）的名字， 此例中，我们用祖先节点的 href 属性重写图片的 src 属性。
+
+
+**注意**  tElem 的值比较特殊，如下：
+
+* 必须是一个选择器元祖（数组），而且选择器的个数为 1 ~ 2 个。
+* 选择器只能是 CSS 选择器。
+* 第一个选择器用于匹配祖先节点
+* 第二个选择器用于选择祖先节点的内部节点，只有当第一个选择器无法确定目标节点时，才需要提供。（极少使用到）
+
+
+还有一种 和 **assign.from.ancestor-attr** 相似的类型为： **assign.from.ancestor.child-attr** ， 此种类型也需要提供 tElem ，且需要提供两个选择器。拿到的目标节点为祖先节点的后代节点。
+
 
 
 ------------------------------
