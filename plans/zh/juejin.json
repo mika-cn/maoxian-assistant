@@ -1,12 +1,11 @@
 [
   {
-    "name": "掘金",
+    "name": "掘金-文章",
     "pattern": [
-      "https://juejin.cn/post/*",
-      "https://juejin.im/post/*"
+      "https://juejin.cn/post/*"
     ],
     "version": 20220207,
-    "pick": "div.article-content",
+    "pick": ".article-content",
     "hide": [
       "span.copy-code-btn"
     ],
@@ -17,6 +16,46 @@
     ],
     "contributors": [
       "CodingOX"
+    ]
+  },
+
+  {
+    "name": "掘金-资讯",
+    "pattern": [
+      "https://juejin.cn/news/*"
+    ],
+    "version": 20220520,
+    "pick": ".article",
+    "hide": [
+      ".article #commentListBox",
+      ".article .jh-news-detail-action-area > .category",
+      ".article .jh-news-detail-action-area > .viewcount"
+    ],
+    "tags": [
+      "IT",
+      "community",
+      "frontend"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  },
+
+  {
+    "name" : "掘金-小册",
+    "pattern" : "https://juejin.cn/book/*/section/*",
+    "version" : 20220521,
+    "pick" : ".article-content > .markdown-body",
+    "form" : {
+      "title": ".article-content > .markdown-body > h1"
+    },
+    "tags": [
+      "IT",
+      "book"
+    ],
+    "contributors": [
+      "Sularxx",
+      "Mika"
     ]
   }
 ]

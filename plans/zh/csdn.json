@@ -1,0 +1,43 @@
+[
+  {
+    "name": "CSDN-博客",
+    "pattern": "https://blog.csdn.net/*/article/details/*",
+    "version": 20220524,
+    "pick": ".blog-content-box article",
+    "hide": [
+      "pre > .signin",
+      ".hide-article-box",
+      "#blogColumnPayAdvert",
+      "#toolBarBox",
+      "#asidedirectory",
+      ".recommend-box",
+      ".template-box",
+      "#copyright-box"
+    ],
+    "hideSibling": [
+      ".unlogin-comment-model > .unlogin-comment-tit",
+      ".main_father",
+      "#mainBox > main"
+    ],
+    "chAttr": [
+      {
+        "type": "split2list.add",
+        "pick": "#article_content",
+        "attr": "style",
+        "value": "height: auto !important",
+        "sep": ";"
+      },
+      {
+        "type": "split2list.add",
+        "pick": "#content_views pre code",
+        "attr": "style",
+        "value": "user-select: text !important",
+        "sep": ";"
+      }
+    ],
+    "contributors": [
+      "Mika"
+    ],
+    "comment": "Removed code selection, Unfolded article content"
+  }
+]
