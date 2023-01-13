@@ -2,7 +2,7 @@
   {
     "name": "知乎专栏",
     "pattern": "https://zhuanlan.zhihu.com/p/**",
-    "version": 20220207,
+    "version": 20230111,
     "hide": [
       "figure > noscript",
       ".GifPlayer-icon",
@@ -28,13 +28,13 @@
       },
       {
         "type": "assign.from.self-attr",
-        "pick": "figure > img",
+        "pick": "figure img",
         "attr": "src",
         "tAttr": "data-actualsrc"
       },
       {
         "type": "replace.last-match",
-        "pick": ".GifPlayer > img",
+        "pick": ".GifPlayer img",
         "attr": "src",
         "subStr": ".jpg",
         "newStr": ".gif"
@@ -51,7 +51,7 @@
   {
     "name": "知乎回答",
     "pattern": "https://www.zhihu.com/question/*/answer/*",
-    "version": 20220207,
+    "version": 20230111,
     "command": [
       {
         "name": "click",
@@ -91,13 +91,13 @@
       },
       {
         "type": "assign.from.self-attr",
-        "pick": "figure > img",
+        "pick": "figure img",
         "attr": "src",
         "tAttr": "data-actualsrc"
       },
       {
         "type": "replace.last-match",
-        "pick": ".GifPlayer > img",
+        "pick": ".GifPlayer img",
         "attr": "src",
         "subStr": ".jpg",
         "newStr": ".gif"
@@ -116,7 +116,7 @@
   {
     "name": "知乎问题",
     "pattern": "https://www.zhihu.com/question/*",
-    "version": 20220207,
+    "version": 20230111,
     "command": [
       {
         "name": "click",
@@ -155,13 +155,13 @@
       },
       {
         "type": "assign.from.self-attr",
-        "pick": "figure > img",
+        "pick": "figure img",
         "attr": "src",
         "tAttr": "data-actualsrc"
       },
       {
         "type": "replace.last-match",
-        "pick": ".GifPlayer > img",
+        "pick": ".GifPlayer img",
         "attr": "src",
         "subStr": ".jpg",
         "newStr": ".gif"
