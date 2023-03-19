@@ -1,0 +1,50 @@
+[
+  {
+    "name": "52pojie",
+    "pattern": "https://www.52pojie.cn/thread-*.html",
+    "version": 20230313,
+    "hide": [
+      "#toptb",
+      "#hd",
+      "#pt",
+      "#pgt",
+      "#postlist > table",
+      "table.ad",
+      ".psth",
+      "#fj",
+      "img[alt=回帖奖励]",
+      "#threadstamp",
+      "dl.rate",
+      "ul.mbw",
+      ".dnch_eo_pb",
+      ".dnch_eo_pt",
+      ".po.hin",
+      ".favatar",
+      ".authicn.vm",
+      "#p_btn",
+      ".pgbtn",
+      "#diyfastposttop",
+      "#fastpostform",
+      ".res-footer-note",
+      "#jz52top",
+      "#ft",
+      "X||//a[text() = '\n推荐\n']",
+      "X||//a[text() = '推荐']"
+    ],
+    "chAttr": [
+      {
+        "type": "assign.from.value",
+        "pick": "#postlist table.plhin",
+        "attr": "data-mx-layout-table",
+        "value": "1"
+      }
+    ],
+    "tags": [
+      "IT",
+      "forum"
+    ],
+    "contributors": [
+      "Mika"
+    ]
+  }
+]
