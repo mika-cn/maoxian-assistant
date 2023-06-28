@@ -1,13 +1,13 @@
 [
   {
-    "name": "掘金-文章",
+    "name": "掘金-文章/资讯",
     "pattern": [
       "https://juejin.cn/post/*"
     ],
-    "version": 20220207,
+    "version": 20230628,
     "pick": ".article-content",
-    "hide": [
-      "span.copy-code-btn"
+    "hideSibling": [
+      ".article-content pre > code"
     ],
     "tags": [
       "IT",

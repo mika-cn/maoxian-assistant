@@ -1,5 +1,14 @@
 [
   {
+    "name" : "dev.pc",
+    "version": 20230606,
+    "pattern" : "http://dev.*/maoxian-web-clipper/**/test-hide-except.html",
+    "hideExcept": [
+      {"inside": "pre", "except": ["code"]}
+    ]
+  },
+
+  {
     "name": "dev.pc",
     "pattern": "http://dev.*/maoxian-web-clipper/**/test-hq-img.html",
     "version": 20211006,
