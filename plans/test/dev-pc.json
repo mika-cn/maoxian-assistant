@@ -1,7 +1,7 @@
 [
   {
-    "name": "dev.pc",
-    "pattern": "http://dev.*/maoxian-web-clipper/**/test-hide-except.html",
+    "name": "mx.pc/hide-except",
+    "pattern": "http://*.pc/maoxian-web-clipper/**/test-hide-except.html",
     "version": 20240502,
     "actions": [
       {
@@ -15,8 +15,8 @@
     ]
   },
   {
-    "name": "dev.pc",
-    "pattern": "http://dev.*/maoxian-web-clipper/**/test-hq-img.html",
+    "name": "mx.pc/hg-img",
+    "pattern": "http://*.pc/maoxian-web-clipper/**/test-hq-img.html",
     "version": 20240502,
     "actions": [
       {
@@ -55,8 +55,8 @@
     ]
   },
   {
-    "name": "dev.pc",
-    "pattern": "http://dev.*/maoxian-web-clipper/**/iframe*",
+    "name": "mx.pc/iframe",
+    "pattern": "http://*.pc/maoxian-web-clipper/**/iframe*",
     "version": 20240502,
     "actions": [
       {
@@ -70,8 +70,8 @@
     ]
   },
   {
-    "name": "dev.pc",
-    "pattern": "http://dev.*/maoxian-web-clipper/index*.html",
+    "name": "mx.pc/mx-index",
+    "pattern": "http://*.pc/maoxian-web-clipper/index*.html",
     "version": 20240502,
     "actions": [
       {
@@ -83,8 +83,8 @@
     ]
   },
   {
-    "name": "dev.pc",
-    "pattern": "http://dev.*/blog/**/*/*/*/*/*.html",
+    "name": "mx.pc/blog-post",
+    "pattern": "http://*.pc/blog/**/*/*/*/*/*.html",
     "version": 20240502,
     "actions": [
       {
@@ -100,8 +100,8 @@
     ]
   },
   {
-    "name": "dev.pc",
-    "pattern": "http://dev.*/maoxian-web-clipper/**/test-tab.html",
+    "name": "mx.pc/test-tab",
+    "pattern": "http://*.pc/maoxian-web-clipper/**/test-tab.html",
     "version": 20240502,
     "actions": [
       {
