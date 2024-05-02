@@ -2,22 +2,22 @@
   {
     "name": "简书",
     "pattern": "https://www.jianshu.com/p/*",
-    "version": 20220207,
-    "pick": "article",
-    "chAttr": [
+    "version": 20240502,
+    "contributors": [
+      "Mika"
+    ],
+    "actions": [
       {
-        "type": "assign.from.self-attr",
-        "pick": ".image-view img[data-original-src]",
-        "attr": "src",
-        "tAttr": "data-original-src"
+        "chAttr": {
+          "type": "assign.from.self-attr",
+          "pick": ".image-view img[data-original-src]",
+          "attr": "src",
+          "tAttr": "data-original-src"
+        }
       }
     ],
     "tags": [
       "writing"
-    ],
-    "contributors": [
-      "Mika"
     ]
   }
 ]
-

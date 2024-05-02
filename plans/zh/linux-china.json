@@ -2,15 +2,18 @@
   {
     "name": "linux.cn",
     "pattern": "https://linux.cn/article-*.html",
-    "version": 20220207,
-    "pick": "div#article_content",
+    "version": 20240502,
+    "contributors": [
+      "Mika"
+    ],
+    "actions": [
+      {
+        "pick": "div#article_content"
+      }
+    ],
     "tags": [
       "IT",
       "Linux"
-    ],
-    "contributors": [
-      "Mika"
     ]
   }
 ]
-

@@ -2,16 +2,19 @@
   {
     "name": "阮一峰的博客",
     "pattern": "http*://www.ruanyifeng.com/blog/**/*/*.html",
-    "version": 20220207,
-    "pick": "article",
+    "version": 20240502,
+    "contributors": [
+      "Mika"
+    ],
+    "actions": [
+      {
+        "pick": "article"
+      }
+    ],
     "tags": [
       "IT",
       "blog",
       "frontend"
-    ],
-    "contributors": [
-      "Mika"
     ]
   }
 ]
-

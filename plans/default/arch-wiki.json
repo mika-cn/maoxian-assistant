@@ -2,9 +2,19 @@
   {
     "name": "ArchWiki",
     "pattern": "https://wiki.archlinux.org/title/*",
-    "version": 20220206,
-    "contributors": ["Mika"],
-    "pick": "#bodyContent",
-    "tags": ["IT", "wiki", "doc"]
+    "version": 20240502,
+    "contributors": [
+      "Mika"
+    ],
+    "actions": [
+      {
+        "pick": "#bodyContent"
+      }
+    ],
+    "tags": [
+      "IT",
+      "wiki",
+      "doc"
+    ]
   }
 ]

@@ -1,10 +1,17 @@
 [
   {
-    "name" : "wangyi open courses",
-    "pattern" : "https://open.163.com/newview/movie/free",
-    "version": 20220207,
-    "pick" : ".video-module",
-    "hideSibling": [".video-js > video"]
+    "name": "wangyi open courses",
+    "pattern": "https://open.163.com/newview/movie/free",
+    "version": 20240502,
+    "actions": [
+      {
+        "hideSibling": [
+          ".video-js > video"
+        ]
+      },
+      {
+        "pick": ".video-module"
+      }
+    ]
   }
 ]
-

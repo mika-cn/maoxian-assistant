@@ -2,15 +2,18 @@
   {
     "name": "segmentfault.com",
     "pattern": "https://segmentfault.com/a/",
-    "version": 20220207,
-    "pick": "article.article-content",
+    "version": 20240502,
+    "contributors": [
+      "Mika"
+    ],
+    "actions": [
+      {
+        "pick": "article.article-content"
+      }
+    ],
     "tags": [
       "IT",
       "geek"
-    ],
-    "contributors": [
-      "Mika"
     ]
   }
 ]
-

@@ -2,11 +2,17 @@
   {
     "name": "iPcfun",
     "pattern": "https://www.ipcfun.com/*.html",
-    "version": 20220207,
-    "pick": ".post",
-    "hide": [
-      ".post_detail > .entry-relate-links",
-      "#sidebar"
+    "version": 20240502,
+    "actions": [
+      {
+        "hide": [
+          ".post_detail > .entry-relate-links",
+          "#sidebar"
+        ]
+      },
+      {
+        "pick": ".post"
+      }
     ]
   }
 ]

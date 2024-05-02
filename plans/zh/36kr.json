@@ -2,15 +2,19 @@
   {
     "name": "36kr",
     "pattern": "https://36kr.com/p/$d",
-    "version": 20220503,
-    "pick": ".articleDetailContent",
+    "version": 20240502,
+    "contributors": [
+      "Mika"
+    ],
+    "actions": [
+      {
+        "pick": ".articleDetailContent"
+      }
+    ],
     "tags": [
       "IT",
       "news",
       "tech"
-    ],
-    "contributors": [
-      "Mika"
     ]
   }
 ]

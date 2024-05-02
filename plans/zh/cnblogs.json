@@ -2,19 +2,24 @@
   {
     "name": "博客园",
     "pattern": "https://www.cnblogs.com/**/*/*.html",
-    "version": 20220207,
-    "pick": "div#cnblogs_post_body",
-    "hide": [
-      "div.cnblogs_code_toolbar",
-      "div.cnblogs_code_copy"
+    "version": 20240502,
+    "contributors": [
+      "CodingOX"
+    ],
+    "actions": [
+      {
+        "hide": [
+          "div.cnblogs_code_toolbar",
+          "div.cnblogs_code_copy"
+        ]
+      },
+      {
+        "pick": "div#cnblogs_post_body"
+      }
     ],
     "tags": [
       "IT",
       "blog"
-    ],
-    "contributors": [
-      "CodingOX"
     ]
   }
 ]
-

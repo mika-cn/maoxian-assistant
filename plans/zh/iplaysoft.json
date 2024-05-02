@@ -2,36 +2,38 @@
   {
     "name": "异次元软件世界",
     "pattern": "https://www.iplaysoft.com/*.html",
-    "version": 20220207,
-    "pick": "div.entry-content",
-    "hide": [
-      "ul#link1111",
-      "#socialshare",
-      ".post_wechat_qr",
-      ".donate",
-      ".entry-recommend-posts",
-      ".entry-relate-links",
-      ".same-cat-post-head",
-      ".same-cat-post",
-      "#respond",
-      "#sidebar"
+    "version": 20240502,
+    "contributors": [
+      "Mika"
     ],
-    "chAttr":  [
+    "actions": [
       {
-        "type": "assign.from.self-attr",
-        "pick": "div.entry-content img.lazyload",
-        "attr": "src",
-        "tAttr": "data-src"
+        "hide": [
+          "ul#link1111",
+          "#socialshare",
+          ".post_wechat_qr",
+          ".donate",
+          ".entry-recommend-posts",
+          ".entry-relate-links",
+          ".same-cat-post-head",
+          ".same-cat-post",
+          "#respond",
+          "#sidebar"
+        ]
+      },
+      {
+        "chAttr": {
+          "type": "assign.from.self-attr",
+          "pick": "div.entry-content img.lazyload",
+          "attr": "src",
+          "tAttr": "data-src"
+        }
       }
     ],
     "tags": [
       "IT",
       "software",
       "share"
-    ],
-    "contributors": [
-      "Mika"
     ]
   }
 ]
-

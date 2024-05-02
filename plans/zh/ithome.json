@@ -2,24 +2,24 @@
   {
     "name": "IT之家",
     "pattern": "https://www.ithome.com/**/*/*.htm",
-    "version": 20220207,
-    "pick": ".post_content",
-    "chAttr": [
+    "version": 20240502,
+    "contributors": [
+      "yzqzss (author)",
+      "Mika"
+    ],
+    "actions": [
       {
-        "type": "assign.from.self-attr",
-        "pick": "img.lazy",
-        "attr": "src",
-        "tAttr": "data-original"
+        "chAttr": {
+          "type": "assign.from.self-attr",
+          "pick": "img.lazy",
+          "attr": "src",
+          "tAttr": "data-original"
+        }
       }
     ],
     "tags": [
       "IT",
       "news"
-    ],
-    "contributors": [
-      "yzqzss (author)",
-      "Mika"
     ]
   }
 ]
-

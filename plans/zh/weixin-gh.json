@@ -2,17 +2,20 @@
   {
     "name": "wixin-gh",
     "pattern": "https://mp.weixin.qq.com/s",
-    "version": 20220207,
-    "pick": "#js_content",
-    "hide": [
-      ".qr_code_pc"
-    ],
-    "chAttr": [
+    "version": 20240502,
+    "actions": [
       {
-        "type": "assign.from.self-attr",
-        "pick": ".wxw-img[data-src], img.img_loading[data-src]",
-        "attr": "src",
-        "tAttr": "data-src"
+        "hide": [
+          ".qr_code_pc"
+        ]
+      },
+      {
+        "chAttr": {
+          "type": "assign.from.self-attr",
+          "pick": ".wxw-img[data-src], img.img_loading[data-src]",
+          "attr": "src",
+          "tAttr": "data-src"
+        }
       }
     ]
   }

@@ -4,58 +4,74 @@
     "pattern": [
       "https://juejin.cn/post/*"
     ],
-    "version": 20230628,
-    "pick": ".article-content",
-    "hideSibling": [
-      ".article-content pre > code"
+    "version": 20240502,
+    "contributors": [
+      "CodingOX"
+    ],
+    "actions": [
+      {
+        "hideSibling": [
+          ".article-content pre > code"
+        ]
+      },
+      {
+        "pick": ".article-content"
+      }
     ],
     "tags": [
       "IT",
       "community",
       "frontend"
-    ],
-    "contributors": [
-      "CodingOX"
     ]
   },
-
   {
     "name": "掘金-资讯",
     "pattern": [
       "https://juejin.cn/news/*"
     ],
-    "version": 20220520,
-    "pick": ".article",
-    "hide": [
-      ".article #commentListBox",
-      ".article .jh-news-detail-action-area > .category",
-      ".article .jh-news-detail-action-area > .viewcount"
+    "version": 20240502,
+    "contributors": [
+      "Mika"
+    ],
+    "actions": [
+      {
+        "hide": [
+          ".article #commentListBox",
+          ".article .jh-news-detail-action-area > .category",
+          ".article .jh-news-detail-action-area > .viewcount"
+        ]
+      },
+      {
+        "pick": ".article"
+      }
     ],
     "tags": [
       "IT",
       "community",
       "frontend"
-    ],
-    "contributors": [
-      "Mika"
     ]
   },
-
   {
-    "name" : "掘金-小册",
-    "pattern" : "https://juejin.cn/book/*/section/*",
-    "version" : 20220521,
-    "pick" : ".article-content > .markdown-body",
-    "form" : {
-      "title": ".article-content > .markdown-body > h1"
-    },
-    "tags": [
-      "IT",
-      "book"
-    ],
+    "name": "掘金-小册",
+    "pattern": "https://juejin.cn/book/*/section/*",
+    "version": 20240502,
     "contributors": [
       "Sularxx",
       "Mika"
+    ],
+    "actions": [
+      {
+        "form": {
+          "title": ".article-content > .markdown-body > h1"
+        }
+      },
+      {
+        "pick": ".article-content > .markdown-body"
+      }
+    ],
+    "tags": [
+      "IT",
+      "book"
     ]
   }
 ]

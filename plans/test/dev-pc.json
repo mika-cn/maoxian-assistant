@@ -1,91 +1,117 @@
 [
   {
-    "name" : "dev.pc",
-    "version": 20230606,
-    "pattern" : "http://dev.*/maoxian-web-clipper/**/test-hide-except.html",
-    "hideExcept": [
-      {"inside": "pre", "except": ["code"]}
+    "name": "dev.pc",
+    "pattern": "http://dev.*/maoxian-web-clipper/**/test-hide-except.html",
+    "version": 20240502,
+    "actions": [
+      {
+        "hideExcept": {
+          "inside": "pre",
+          "except": [
+            "code"
+          ]
+        }
+      }
     ]
   },
-
   {
     "name": "dev.pc",
     "pattern": "http://dev.*/maoxian-web-clipper/**/test-hq-img.html",
-    "version": 20211006,
-    "pick": "body",
-    "chAttr": [
+    "version": 20240502,
+    "actions": [
       {
-        "type": "split2list.add",
-        "pick": "div.t0",
-        "attr": "class",
-        "value": "actived"
+        "chAttr": {
+          "type": "split2list.add",
+          "pick": "div.t0",
+          "attr": "class",
+          "value": "actived"
+        }
       },
       {
-        "type": "assign.from.self-attr",
-        "pick": "div.t1 img",
-        "attr": "src",
-        "tAttr": "hq-src"
+        "chAttr": {
+          "type": "assign.from.self-attr",
+          "pick": "div.t1 img",
+          "attr": "src",
+          "tAttr": "hq-src"
+        }
       },
       {
-        "type": "replace.last-match",
-        "pick": "div.t2 img",
-        "attr": "src",
-        "subStr": "thumb",
-        "newStr": "hq"
+        "chAttr": {
+          "type": "replace.last-match",
+          "pick": "div.t2 img",
+          "attr": "src",
+          "subStr": "thumb",
+          "newStr": "hq"
+        }
       },
       {
-        "type": "assign.from.parent-attr",
-        "pick": "div.t3 img",
-        "attr": "src",
-        "tAttr": "href"
+        "chAttr": {
+          "type": "assign.from.parent-attr",
+          "pick": "div.t3 img",
+          "attr": "src",
+          "tAttr": "href"
+        }
       }
     ]
   },
   {
     "name": "dev.pc",
     "pattern": "http://dev.*/maoxian-web-clipper/**/iframe*",
-    "version": 20211006,
-    "chAttr": [
+    "version": 20240502,
+    "actions": [
       {
-        "type": "assign.from.self-attr",
-        "pick": "img",
-        "attr": "src",
-        "tAttr": "hq-src"
+        "chAttr": {
+          "type": "assign.from.self-attr",
+          "pick": "img",
+          "attr": "src",
+          "tAttr": "hq-src"
+        }
       }
-    ],
-    "frame": "child"
+    ]
   },
   {
     "name": "dev.pc",
     "pattern": "http://dev.*/maoxian-web-clipper/index*.html",
-    "version": 20211006,
-    "pick": ".main",
-    "hide": "ul"
+    "version": 20240502,
+    "actions": [
+      {
+        "hide": "ul"
+      },
+      {
+        "pick": ".main"
+      }
+    ]
   },
   {
     "name": "dev.pc",
     "pattern": "http://dev.*/blog/**/*/*/*/*/*.html",
-    "version": 20211006,
-    "pick": [
-      ".page-content"
-    ],
-    "hide": [
-      "header"
+    "version": 20240502,
+    "actions": [
+      {
+        "hide": [
+          "header"
+        ]
+      },
+      {
+        "pick": [
+          ".page-content"
+        ]
+      }
     ]
   },
   {
     "name": "dev.pc",
     "pattern": "http://dev.*/maoxian-web-clipper/**/test-tab.html",
-    "version": 20211006,
-    "pick": "body",
-    "chAttr": [
+    "version": 20240502,
+    "actions": [
       {
-        "type": "split2list.add",
-        "attr": "class",
-        "pick": ".tab-content",
-        "value": "actived"
+        "chAttr": {
+          "type": "split2list.add",
+          "attr": "class",
+          "pick": ".tab-content",
+          "value": "actived"
+        }
       }
     ]
   }
 ]
-
