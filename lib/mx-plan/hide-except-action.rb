@@ -7,14 +7,17 @@ class HideExceptAction
   Example:
   {
     ...
-    hideExcept: [
+    actions: [
       {
-        "inside": ".post",
-        "except": [".post-title", ".post-content"]
+        hideExcept: {
+          "inside": ".post",
+          "except": [".post-title", ".post-content"]
+        }
       }
     ]
   }
 =end
+
   required_attr :inside
   required_attr :except
 end

@@ -9,15 +9,26 @@ module JsonObject
     DEFAULT_OPTIONS = {to_hash: true, collection: false}
 
     def required_attr(name, options = {})
+      validate_defined_attr(name, options)
       @attr_defines ||= {}
       @attr_defines[name.to_s] = DEFAULT_OPTIONS.merge(options).merge({required: true})
       self.attr_reader name
     end
 
     def optional_attr(name, options = {})
+      validate_defined_attr(name, options)
       @attr_defines ||= {}
       @attr_defines[name.to_s] = DEFAULT_OPTIONS.merge(options).merge({required: false})
       self.attr_reader name
+    end
+
+    def validate_defined_attr(name, options = {})
+      if options[:collection] && !options.has_key?(:klass)
+        raise "attribute: '#{name}' contains 'collection' option that requires 'klass' option"
+      end
+      if options[:optional_collection] && !options.has_key?(:klass)
+        raise "attribute: '#{name}' contains 'optional_collection' option that requires 'klass' option"
+      end
     end
   end
 
@@ -61,11 +72,24 @@ module JsonObject
 
   def initialize(params)
     attr_defines.each_pair do |attr, attr_define|
+
       if params.has_key?(attr)
+        value = params[attr]
+
         if attr_define[:collection]
-          instance_variable_set vname(attr), Collection.new(attr_define[:klass], params[attr])
+          instance_variable_set vname(attr), Collection.new(attr_define[:klass], value)
+        elsif attr_define[:optional_collection]
+          if value.is_a? Array
+            instance_variable_set vname(attr), Collection.new(attr_define[:klass], value)
+          else
+            instance_variable_set vname(attr), attr_define[:klass].new(value)
+          end
+        elsif attr_define[:klass]
+          instance_variable_set vname(attr), attr_define[:klass].new(value)
+        elsif attr_define[:module]
+          instance_variable_set vname(attr), attr_define[:module].new_instance(value)
         else
-          instance_variable_set vname(attr), params[attr]
+          instance_variable_set vname(attr), value
         end
       elsif attr_define[:default]
         instance_variable_set vname(attr), attr_define[:default]
@@ -97,7 +121,7 @@ module JsonObject
         return [false, "The value of #{attr} must be a member of\n [#{attr_define[:in].map(&:to_s).join(', ')}], \nbut it's value is #{attr_value}"]
       end
 
-      if attr_define[:klass] && attr_value && !attr_value.valid?
+      if (attr_define[:klass] || attr_define[:module]) && attr_value && !attr_value.valid?
         intent = " " * 4
         error = "#{attr}:\n" + attr_value.errors.map do |it|
           "#{intent}#{it}"
@@ -125,7 +149,7 @@ module JsonObject
     attr_defines.each_pair do |attr, attr_define|
       attr_value = instance_variable_get(vname(attr))
       if attr_define[:to_hash] && attr_value && (attr_define[:default].nil? || attr_define[:default] != attr_value)
-        if attr_define[:collection]
+        if attr_define[:collection] || attr_define[:klass] || attr_define[:module]
           hash[attr] = attr_value.to_hash
         else
           hash[attr] = attr_value

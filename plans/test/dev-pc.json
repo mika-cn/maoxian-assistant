@@ -37,19 +37,23 @@
       },
       {
         "chAttr": {
-          "type": "replace.last-match",
           "pick": "div.t2 img",
-          "attr": "src",
-          "subStr": "thumb",
-          "newStr": "hq"
+          "action": {
+            "type": "replace.last-match",
+            "attr": "src",
+            "subStr": "thumb",
+            "newStr": "hq"
+          }
         }
       },
       {
         "chAttr": {
-          "type": "assign.from.parent-attr",
           "pick": "div.t3 img",
-          "attr": "src",
-          "tAttr": "href"
+          "action": [{
+            "type": "assign.from.parent-attr",
+            "attr": "src",
+            "tAttr": "href"
+          }]
         }
       }
     ]

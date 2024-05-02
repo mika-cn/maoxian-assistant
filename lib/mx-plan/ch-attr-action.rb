@@ -1,8 +1,6 @@
 require_relative '../json-object'
 
-class ChAttrAction
-  include JsonObject
-
+module ChAttrActionTypes
   T01 = "assign.from.value"
   T02 = "assign.from.self-attr"
 
@@ -37,6 +35,12 @@ class ChAttrAction
     T71, T72,
     T91, T92,
   ];
+end
+
+
+class OldChAttr
+  include JsonObject
+  include ChAttrActionTypes
 
   required_attr :type, in: TYPES
   required_attr :pick
@@ -52,6 +56,30 @@ class ChAttrAction
   optional_attr :change   #T55
   optional_attr :delete   #T55
 
+end
 
+# without attribute "pick"
+class NewChAttrAction
+  include JsonObject
+  include ChAttrActionTypes
+
+  required_attr :type, in: TYPES
+  required_attr :attr
+  optional_attr :subStr, required_if: -> {value_in(:type, T71, T72)}
+  optional_attr :newStr, required_if: -> {value_in(:type, T71, T72)}
+  optional_attr :tElem,  required_if: -> {value_in(:type, T12, T13, T22, T23)}
+  optional_attr :tAttr,  required_if: -> {value_in(:type, T02, T11, T12, T13, T21, T22, T23)}
+  optional_attr :value,  required_if: -> {value_in(:type, T01, T91, T92)}
+  optional_attr :sep,    required_if: -> {value_in(:type, T51, T52, T53, T54)}
+  optional_attr :suffix, required_if: -> {value_in(:type, T51, T53)}
+  optional_attr :whiteList #T52, T54
+  optional_attr :change   #T55
+  optional_attr :delete   #T55
+end
+
+class NewChAttr
+  include JsonObject
+  required_attr :pick
+  required_attr :action, optional_collection: true, klass: NewChAttrAction
 end
 
