@@ -1,13 +1,14 @@
 [
   {
     "name": "wixin-gh",
-    "pattern": "https://mp.weixin.qq.com/s",
-    "version": 20240502,
+    "pattern": "https://mp.weixin.qq.com/s/*",
+    "version": 20240508,
+    "contributors": [
+      "Mika"
+    ],
     "actions": [
       {
-        "hide": [
-          ".qr_code_pc"
-        ]
+        "hide": [ ".qr_code_pc" ]
       },
       {
         "chAttr": {
@@ -16,6 +17,13 @@
           "attr": "src",
           "tAttr": "data-src"
         }
+      },
+      {
+        "formula": {
+          "pick": "mjx-container",
+          "attr": "data-formula"
+        },
+        "tag": "md-only"
       }
     ]
   }
