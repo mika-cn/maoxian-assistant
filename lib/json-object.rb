@@ -95,6 +95,15 @@ module JsonObject
         instance_variable_set vname(attr), attr_define[:default]
       end
     end
+    check_missing_defines(params)
+  end
+
+  def check_missing_defines(params)
+    params.each_pair do |attr, value|
+      unless attr_defines.has_key?(attr)
+        puts "[WARN] expect #{self.class.name} to define attribute #{attr}"
+      end
+    end
   end
 
   def valid?
