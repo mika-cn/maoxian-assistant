@@ -1,4 +1,4 @@
-require_relative '../json-object'
+require_relative '../../json-object'
 
 module ChAttrActionTypes
   T01 = "assign.from.value"
